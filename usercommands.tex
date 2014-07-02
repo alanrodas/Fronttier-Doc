@@ -1,0 +1,36 @@
+\newcommand{\comment}[1]{}
+
+\newcommand{\blankpage}{
+	\clearpage
+	\thispagestyle{plain}
+	\mbox{}
+	\clearpage
+}
+
+\newcommand{\jump}[1][1]{
+	\vspace{#1\baselineskip}
+}
+
+\newcommand{\separator}{
+	\begin{center}
+		\jump[0.5]%
+		\hrulefill\\%
+		\jump[0.5]%
+	\end{center}
+}
+
+\newcommand{\citesq}[1]{[\cite{#1}]}
+\newcommand{\citeyearsq}[1]{[\citeyear{#1}]}
+
+\DeclareCiteCommand{\citefullauthor}{%
+	\boolfalse{citetracker}%
+	\boolfalse{pagetracker}%
+	\DeclareNameAlias{labelname}{first-last}%
+	\usebibmacro{prenote}%
+}{%
+	\ifciteindex
+	{\indexnames{labelname}}
+	{}%
+	\printnames{labelname}%
+}
+{\multicitedelim}{\usebibmacro{postnote}}
