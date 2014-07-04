@@ -1,4 +1,5 @@
 \section{Introducción}
+\label{sec:intro}
 
 Historia de los sistemas Java crecientes
 Historia de los lenguajes para JVM
@@ -19,29 +20,34 @@ enumeraré soluciones existentes a problemas similares o al problema puntual, y 
 en donde son útiles y donde no.
 
 \subsection{Sobre los sistemas web}
+\label{subsec:intro:about_web}
 
 Si bien no es el objetivo de este documento explicar en detalle la historia de los cambios
-en las arquitecturas de software, en este apartado se intentará explicar los cambios que ha
-sufrido la industria de desarrollo de software en los últimos tiempos, y como estos han
-llevado a que los sistemas web sean hoy en día una de las opciones más utilizadas, y más
-rentables en cuanto a desarrollo de software se refiere. Además, se intentará explicar en
-forma sencilla la estructura básica de este tipo de soluciones informáticas.
+en las arquitecturas de software, en este apartado intentaré dar una breve muestra de los
+cambios que ha sufrido la industria de desarrollo de sistemas en los últimos tiempos, y
+como estos han llevado a que los sistemas web sean hoy en día una de las opciones más
+utilizadas, y más rentables.
 
 \subsubsection{Estado anterior a los sistemas web}
+\label{subsubsec:intro:about_web:previous_pc}
+
 En las décadas de 1960 y 1970, comienza en el mundo un proceso lento pero incremental de
-computarización de la información. Las computadoras dejan de ser \emph{"juguetes"} para
-pasar a ser complejas maquinarias con verdadera utilidad practica.\\
-En este contexto, varias empresas comienzan a \emph{informatizarse}. Bancos y otros compran
-grandes y complejas computadoras capaces de almacenar toda su información, procesarla y
-presentar resultados en poco tiempo.\\
-Con este contexto inicial, los sistemas informáticos empresariales evolucionaron a con una
-arquitectura cliente-servidor, con tecnologías que hoy son referidas como \mainframes.\\
+computarización de la información. Las computadoras dejan de ser \emph{"juguetes"}
+cientificos para pasar a ser complejas maquinarias con verdadera utilidad practica
+en distintas industrias.\\
+En este contexto, varias empresas comienzan a \emph{informatizarse}. Bancos, empresas
+petroleras y otros compran grandes y complejas computadoras capaces de almacenar toda
+su información, o procesar complejos cálculos matemáticos en poco tiempo.\\
+En este contexto, múltiples empresas como \emph{IBM}, \emph{RCA}, \emph{General Electric},
+etc. comenzaron a fabricar gigantescas computadoras de precio cada vez más económico.
+Estas maquinas evolucionarían poco a poco hasta convertirse en lo que hoy llamamos
+\mainframes.\\
 En este sentido, \citefullauthor{Stephens:2008:BOOK} en su libro
 \citetitle{Stephens:2008:BOOK} \citeyearsq{Stephens:2008:BOOK} describe a un \mainframe como
 una computadora muy grande, con una base de datos de alto rendimiento, a la cual se accede
-desde una terminal remota (o un emulador de la misma), es decir, una maquina
-\emph{"tonta"}, sin mucha otra finalidad más que la de conectarse al servidor central para
-realizar peticiones de datos y mostrarle los resultados al usuario.\\
+desde una terminal remota, es decir, una maquina \emph{"tonta"}, sin mucha otra finalidad
+más que la de conectarse al servidor central para realizar peticiones de datos y mostrarle
+los resultados al usuario.\\
 \citeauthor{Stephens:2008:BOOK} también destaca los beneficios de los \mainframes por sobre
 una computadora personal a nivel empresarial. Las características que menciona son:
 \begin{description}
@@ -55,21 +61,23 @@ una computadora personal a nivel empresarial. Las características que menciona 
 	\item[Auditoria]: Ser capaz de saber quien realizo que acción en el equipo.
 	\item[Seguridad]: Solo aquellos que pueden realizar una acción pueden hacerlo.
 \end{description}
-Estas características resultan fundamentales en emprendimientos críticos, por ejemplo,
-sistemas bancarios, o programas de control de acciones financieras.\\
- \citefullauthor{Elliot:2008:BOOK} ha descripto que las tendencias de la
- tecnología utilizada, no obedecen solamente a motivaciones económicas, sino a un
- complejo entramado de relaciones entre empresas que comparten una visión utopica sobre
- la tecnología en cuestión \citesq{pag 3, Elliot:2008:BOOK}. Así, los \mainframes se
- lograron posicionar como la tecnología dominante gracias a la visión utópica generada
- en las empresas por los vendedores de estos costosos sistemas (principalmente IBM),
- enarbolando como bandera principal los beneficios planteados por
- \citeauthor{Stephens:2008:BOOK}.
+Estas características son todavía buscadas en los grandes \mainframes de la actualidad,
+y resultan fundamentales en emprendimientos críticos, por ejemplo, sistemas bancarios,
+programas de control de acciones financieras, sistemas petroleros o el software que
+controla misiones espaciales.\\
+\citefullauthor{Elliot:2008:BOOK} ha descripto que las tendencias de la
+tecnología utilizada, no obedecen solamente a motivaciones económicas, sino a un
+complejo entramado de relaciones entre empresas que comparten una visión utópica sobre
+la tecnología en cuestión \citesq[pag 3]{Elliot:2008:BOOK}. Así, las empresas
+comercializadoras de \mainframes enarbolando como bandera principal los beneficios
+planteados por \citeauthor{Stephens:2008:BOOK}, lograron generar una visión utópica en
+las empresas usuarias para posicionar la tecnología dominante durante largos años.
  
 \subsubsection{Aparición de las computadoras personales}
+\label{subsubsec:intro:about_web:pc_era}
 
-A partir de fines de la década de 1970 y comienzos de la década de 1980, las computadoras
-personales (\emph{PC}) comienzan a ser cada vez más accesibles \citesq{cap 4, Allan:2001:BOOK}.
+A partir de fines de los 70`s y comienzos de los 80`s, las computadoras personales
+(\emph{PC}) comienzan a ser cada vez más accesibles \citesq[cap 4]{Allan:2001:BOOK}.
 La liberación de ARPANET por parte de DARPA\footnote{
 	DARPA acrónimo de la expresión en inglés \emph{\textbf{D}efense \textbf{A}dvanced
 	\textbf{R}esearch \textbf{P}rojects \textbf{A}gency} (Agencia de Proyectos de
@@ -78,63 +86,69 @@ La liberación de ARPANET por parte de DARPA\footnote{
 	Fue creada en 1958 como consecuencia tecnológica de la llamada Guerra Fría.
 } en 1983 da nacimiento a la Internet. Estos dos cambios suponen un quiebre
 en las tecnologías de uso empresarial.\\
-El desarrollo de nuevos lenguajes de programación, computadoras potentes de bajo costo, y
-la conectividad, pero por sobre todo el \emph{PC} llevaron a que los \mainframes comenzaran
-a perder terreno. De esta forma, la industria comienza a torcer lentamente hacia el desarrollo
-de aplicaciones cliente servidor que ya no radican solamente en terminales \emph{"tontas"},
-sino que los programas comienzan a correr en las computadoras de los usuarios, procesar datos
-en ellas y luego comunicarse con un servidor para sincronizar la información en caso de ser
-necesario.\\
-Debido a la naturaleza misma de la tecnología empleada en el desarrollo de estas soluciones,
-estos cambios suponen un alto costo de mantenimiento y de producción. los dos factores más
-incidentes, son la necesidad de generar un cliente para cada sistema operativo, y la necesidad
-de actualizar los mismos en caso de futuros cambios\footnote{
+El \emph{PC}, sumado a la conectividad y nuevas tecnologías tanto en sistemas como en
+lenguajes de programación llevaron a que los \mainframes comenzaran
+a perder terreno.\\
+La posibilidad de ejecutar programas en cada \emph{PC} dio lugar a nuevas arquitecturas
+cliente-servidor. Ahora los usuarios corrian los programas en su propio equipo, permitiendo
+aumentar la velocidad de respuesta. El programa se conectaba a Internet y sincronizaba
+información con un servidor central solo cuando fuera necesario.\\
+Esta arquitectura permitiría una más rápida evolución del software por sobre la opción de
+tener el sistema en un \mainframe, como explica  \citefullauthor{Duncan:1996:ARTICLE} en su
+articulo \citetitle{Duncan:1996:ARTICLE}. Sin embargo, como contrapartida  estos cambios
+suponen un alto costo de mantenimiento, y en caso de poseer equipos con distintos sistemas
+operativos, un gasto extra en el desarrollo. Esto se debe a la necesidad de generar un
+cliente para cada sistema operativo, y la necesidad de actualizar los mismos en caso de
+futuros cambios\footnote{
 	Recuerde el lector que el software se distribuía en esa época en medios físicos, por
 	lo que la instalación de una nueva versión del sistema requería presencia física en el
 	equipo.
 }.
+demuestra que, independientemente de los costos, el factor más incidente en el cambio es la
+necesidad de mantener el sistema al día con las necesidades de la empresa.
 
 \subsubsection{Navegadores y primeros sistemas web}
+\label{subsubsec:intro:about_web:web}
 
 Tras la aparición de los navegadores web, como \emph{Netscape} e \emph{Internet Explorer},
 a comienzos de 1990, se comenzaron a desarrollar los primeros sistemas web.\\
 Los mismos, consistían básicamente en documentos dinámicos, generados con información
-tomada de una base de datos. Gran influencia tuvieron en este tipo de soluciones, la creación
-de lenguajes de programación como \emph{PHP} o \emph{ASP} que trabajaban sobre el protocolo
-de Internet para compartir \emph{HTML}\footnote{
+tomada de una base de datos. Gran influencia tuvieron en este tipo de soluciones, la
+creación de lenguajes de programación y tecnologías pensadas para generar documentos
+\emph{HTML}\footnote{
 	HTML, siglas de \emph{HyperText Markup Language} (lenguaje de marcas de hipertexto), es
 	un lenguaje de marcado para la elaboración de páginas web. Fué desarrollado por Tim
 	Berners-Lee en 1991 y rápidamente se convirtió en un estándar.
-} generado dinámicamente.\\
-La posibilidad de generar \emph{aplicaciones} que corran ene el navegador, solucionó las
+} dinámicamente \citesq[pag 2]{Hunter:2001:BOOK}, como \emph{PHP}, \emph{ASP} y los
+\emph{Servlets} de \emph{Java}.
+La posibilidad de generar \emph{aplicaciones} que corran en el navegador, solucionó las
 problemáticas asociadas a el mantenimiento de los sistemas y al desarrollo para múltiples
 sistemas operativos. Sin embargo, esta vez, la naturaleza de HTML limitaba la capacidad
 de las aplicaciones a sencillos formularios, botones y enlaces.\\
-Estas limitaciones hicieron que el modelo de sistemas web no fuese completamente adoptado.
-No fue sino hasta con la aparición de las primeras tecnologías complementarias a HTML, que
-las aplicaciones web comenzarían a cobrar más relevancia, dando lugar a las \emph{Rich
-Internet Applications} (Aplicaciones de Internet Enriquecidas).
+Estas limitaciones hicieron que no fuera sino hasta con la aparición de las primeras
+tecnologías complementarias a HTML, que las aplicaciones web comenzarían a cobrar
+relevancia, dando lugar a las \emph{Rich Internet Applications} (Aplicaciones de
+Internet Enriquecidas).
 
 \subsubsection{Rich Internet Applications}
+\label{subsubsec:intro:about_web:rias}
 
 Las \emph{Rich Internet Applications} (RIAs) surgen para compensar aquellas faltantes que
-presentaban las aplicaciones web fente a las tradicionales aplicaciones de escritorio
-cliente-servidor.\\
+presentaban las aplicaciones web frente a las tradicionales de cliente-servidor de
+escritorio.\\
 En un primer lugar, complementos a HTML en forma de \emph{plugins} para los navegadores
 fueron creados. Uno de los más populares fue \emph{Flash} de \emph{Adobe}, que todavía
-continua presente hoy en día. Java tampoco se quedo atrás y presento sus \emph{servlets},
+continua presente hoy en día. Java tampoco se quedo atrás y presentó sus \emph{Servlets},
 una forma de embeber código Java en páginas HTML.\\
-Por primera vez, se podían emular complejos comportamientos y componentes mediante
-reglas de estilo y comportamiento en el navegador del usuario. Desde arrastras y soltar,
-ordenar elementos hasta crear complejos gráficos.\\
-Estas aplicaciones comenzaron a copar los mercados empresariales, ya que permite a ahorrar
-en mantenimiento y desarrollo, a la vez que permitía una alta usabilidad. Con la aceleración
-de las conexiones a Internet y el incremento de dispositivos para conectarse a la misma
-(tablets, teléfonos inteligentes, etc.) estas soluciones posibilitaban además beneficios
-como la posibilidad de en equipos distribuidos, o acceder a servicios de forma remota.\\
-Cada vez más soluciones comenzaron a surgir, \emph{Adobe Flex}, \emph{Microsoft Silverlight},
-etc. Sin embargo, la falta de estándares llevaría a que se desarrollaran con fuerza los
-lenguajes y complementos \emph{CSS}\footnote{
+Por primera vez se podían emular complejos comportamientos y componentes mediante estilo
+y comportamiento en el navegador del usuario. Desde arrastras y soltar, ordenar elementos
+hasta crear complejos gráficos.\\
+Estas aplicaciones comenzaron a copar los mercados empresariales, ya que permitían ahorrar
+en mantenimiento y desarrollo, a la vez que brindaban la alta usabilidad que se demandaba
+de un sistema empresarial.\\
+Cada vez más soluciones comenzaron a surgir, \emph{Adobe Flex}, \emph{Microsoft Silverlight}
+y \emph{JavFX} \citecp{Clarke:2009:BOOK}. Sin embargo, la falta de estándares llevaría a que
+se desarrollaran con fuerza los estándares \emph{CSS}\footnote{
 	CSS, acronimo de \emph{\textsc{C}ascading \textsc{S}tyle \textsc{S}heets} (Hojas de
 	Estilo en Cascada) es un lenguaje utilizado para describir el aspecto y el formato de un
 	documento escrito en lenguaje HTML o similar.
@@ -143,17 +157,25 @@ lenguajes y complementos \emph{CSS}\footnote{
 	utilizado principalmente del lado del cliente, ya que es implementado como parte de un
 	navegador web, permitiendo mejoras en la interfaz de usuario y páginas web dinámicas.
 }, tecnologías libres y disponibles en cualquier navegador sin necesidad de instalar
-software adicional en el equipo, como si ocurría con los \emph{plugins}.\\
-Así, en los últimos años, el llamado \emph{HTML5}\footnote{
-	HTML5 (\emph{\textsc{H}yperText \textsc{M}arkup \textsc{L}anguage}, versión 5) es la quinta revisión importante del
-	lenguaje básico de marcado de documentos para Internet. Su nombre suele hacer
-	referencia no solo al nuevo estándar, todavía experimental de este lenguaje, sino
-	también a las tecnologías que lo acompañan, CSS en su versión 3, y JavaScript.
-} pasaría a transformarse en el estándar para el desarrollo de RIAs. Estas tecnologías
-se ha vuelto cada vez más comunes. La tendencia marca que las RIAs desarrolladas bajo el
-estándar HTML5 seguirán siendo la tendencia durante los años venideros.\\
+software adicional al equipo, caso que si ocurría con los \emph{plugins} antes mencionados.\\
+Así, en los últimos años,y gracias también al auge de los smartphones y tablets, incapaces
+de correr los anteriormente mencionados plugins, el llamado \emph{HTML5}\footnote{
+	HTML5 (\emph{\textsc{H}yperText \textsc{M}arkup \textsc{L}anguage}, versión 5) es la
+	quinta revisión importante del lenguaje básico de marcado de documentos para Internet.
+	Su nombre suele hacer referencia no solo al nuevo estándar, todavía experimental de este
+	lenguaje, sino también a las tecnologías que lo acompañan, CSS en su versión 3, y
+	JavaScript.
+} pasaría a transformarse en el estándar para el desarrollo de RIAs \citesq{David:2013:BOOK}.\\
+La tendencia marca que las RIAs desarrolladas bajo el estándar HTML5 seguirán siendo la
+norma durante los años venideros. Multples frameworks han aparecido capaces de generar
+rápidamente sistemas web con un \emph{front-end} completamente realizado en HTML5.\\
+
+\subsection{Acerca de la Java Virtual Machine (JVM)}
+\label{subsec:intro:about_jvm}
+
 
 \subsection{Crecimiento de la JVM como plataforma}
+\label{subsec:intro:jvm_growth}
 
 Java es, casi sin cuestionamientos \footnote{
 	Se puede argumentar que la medición de la popularidad de
@@ -167,13 +189,13 @@ Java es, casi sin cuestionamientos \footnote{
 	misma del lenguaje.) Así, cada estadista toma distintas variables, le otorga distinto
 	peso a las mismas y obtendrá distintos resultados.
 }, uno de los lenguajes más populares. Así lo demuestran las estadísticas de análisis de
-popularidad de lenguaje, como la popular estadística TIOBE que a la fecha de esta
+popularidad de lenguajes, como la renombrada estadística TIOBE que a la fecha de esta
 publicación ubica a Java en segundo lugar \citesq{TIOBE:2014:ONLINE}. La estadística
 \emph{"transparente"} creada por \citefullauthor{Montmollin:2013:ONLINE}, que publica el
 código de forma open source y sus reglas online, muestra al lenguaje de Oracle en la misma
 posición \citesq{Montmollin:2013:ONLINE}, mientras que la otra herramienta open source que
 permite medir la popularidad de los lenguajes, PyPL, de
-\citefullauthor{Carbonelle:2014:ONLINE}, muestra lo muestra en primer lugar
+\citefullauthor{Carbonelle:2014:ONLINE}, lo muestra en primer lugar
 \citesq{Carbonelle:2014:ONLINE}.\\
 Además, \citefullauthor{Kunst:2014:ONLINE} ha desarrollado un gráfico en donde muestra la
 cantidad de líneas de código en GitHub\footnote{
@@ -190,20 +212,35 @@ sobre la Java Virtual Machine (JVM)\footnote{
 	Ioke, Jelly, Kotlin, Mirah, Processing, X10 y Xtend.
 } como de alto interés.\\
 Queda entonces patente que los lenguajes que se ejecutan en la JVM tienen un uso cada vez
-más creciente. Empero, la diferencia se volvería aun mayor si consideramos el uso de los
-lenguajes para desarrollo de soluciones empresariales web.\\
+mayor. Empero, la diferencia se volvería aun más grande si consideramos el uso de los
+lenguajes para desarrollo de soluciones web.\\
 Si bien no existen estadísticas que confirmen esto, es prácticamente reconocido por
 cualquier programador que la ventaja que se lee en las estadísticas por parte del lenguaje
-C, son producto del desarrollo, no de sistemas web, sino de pequeñas herramientas de
+C, es producto del desarrollo, no de sistemas web, sino de pequeñas herramientas de
 escritorio. Asimismo, la popularidad creciente de Objective-C, se debe al uso del mismo en
-las aplicaciones móviles de iPhone. Finalmente, el amplio desarrollo que presenta en las
-encuestas JavaScript, no compite necesariamente con los sistemas hechos en JVM sino que de
-hecho, tiende a complementarlos.\\
+las aplicaciones móviles de iPhone y iPad. Finalmente, el amplio desarrollo que presenta en
+las encuestas JavaScript, no compite necesariamente con los sistemas hechos en JVM sino que
+de hecho, tiende a complementarlos, ya que es una parte importante de las
+RIAs\ref{subsubsec:intro:about_web:rias}.\\
 
 \subsection{Desarrollo de sistemas web en la JVM}
+\label{subsec:intro:jvm_dev}
+
 \subsubsection{Estructura común de sistemas web}
+\label{susubbsec:intro:jvm_dev:structure}
+
 \subsubsection{Reutilización de código mediante dependencias}
+\label{susubbsec:intro:jvm_dev:dependencies}
+
 \subsubsection{Dependencias manejadas de backend}
+\label{susubbsec:intro:jvm_dev:backend_dependencies}
+
 \subsubsection{Dependencias no manejadas de front-end}
+\label{susubbsec:intro:jvm_dev:frontend_dependencies}
+
 \subsubsection{CDN}
+\label{susubbsec:intro:jvm_dev:cdns}
+
 \subsubsection{Dependencias manejadas de front-end}
+\label{susubbsec:intro:jvm_dev:frontend_managed}
+

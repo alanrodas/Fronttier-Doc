@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd ~/Projects/TIP;
+cd ~/Projects/Fronttier-Doc;
 rm -rf *.aux;
 rm -rf *.bbl;
 rm -rf *.bcf;

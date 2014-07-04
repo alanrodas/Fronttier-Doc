@@ -19,7 +19,11 @@
 	\end{center}
 }
 
-\newcommand{\citesq}[1]{[\cite{#1}]}
+\newcommand{\citesq}[2][]{
+	\ifthenelse { \equal {#1} {} } 
+	{ [\cite{#2}] } % If it's empty
+	{ [\cite[#1]{#2} ] } % If not
+}
 \newcommand{\citeyearsq}[1]{[\citeyear{#1}]}
 
 \DeclareCiteCommand{\citefullauthor}{%
