@@ -1,11 +1,16 @@
 % !TeX encoding = UTF-8
 % !TeX spellcheck = es_AR
 % Compile with XeLaTeX, XeTeX and Biber
+% arara: xelatex
+% arara: biber
+% arara: makeglossaries
+% arara: xelatex
+% arara: xelatex
 
 \input{preamble}
 \input{usercommands}
 \input{definitions}
-
+\input{glosary}
 \bibliography{bibliography}
 
 \begin{document}
@@ -22,5 +27,6 @@
 	\input{chapter04}
 	\input{chapter05}
 	\blankpage
-	\printbibliography
+	\printdefinitions
+	\printbibliography[heading=bibintoc]
 \end{document}

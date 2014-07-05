@@ -1,0 +1,104 @@
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+\ProvidesPackage{coding}[2014/06/05 Coding]
+
+\RequirePackage{listings}
+\RequirePackage[usenames, dvipsnames]{color}
+\RequirePackage{keycommand}
+
+\DeclareOption{uselinenumbers}{
+	\lstset{
+		numbers=left,
+		numberstyle=\footnotesize,
+		stepnumber=1,
+		numbersep=5pt
+	}
+}
+
+\DeclareOption{framed}{
+	\lstset{
+		frame=single
+	}
+}
+
+\ProcessOptions\relax
+
+\lstset{%
+	basicstyle=\footnotesize,       % the size of the fonts that are used for the code
+	backgroundcolor=\color{white},  % choose the background color. You must add \usepackage{color}
+	showspaces=false,
+	showstringspaces=false,
+	showtabs=false,
+	tabsize=2,
+	captionpos=b,
+	breaklines=true,
+	breakatwhitespace=false,
+	escapeinside={\%*}{*)}
+}
+
+\lstdefinelanguage{JavaScript}{
+	keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+	ndkeywords={class, export, boolean, throw, implements, import, this},
+	sensitive=true,
+	comment=[l]{//},
+	morecomment=[s]{/*}{*/},
+	morestring=[b]',
+	morestring=[b]"
+}
+
+\lstdefinelanguage{POM}{
+	keywords={project, dependencies, dependency, groupId, artifactId, version},
+	ndkeywords={},
+	sensitive=false,
+	morecomment=[s]{<!--}{-->},
+	morestring=[b]',
+	morestring=[b]"
+}
+
+\lstdefinelanguage{IVY}{
+	keywords={dependencies, dependency, ivy, module, info},
+	ndkeywords={version, organisation, module, org, name, rev},
+	sensitive=false,
+	morecomment=[s]{<!--}{-->},
+	morestring=[b]',
+	morestring=[b]"
+}
+
+
+\newkeycommand\setcodelanguage[label=,caption=][1]{%
+	\lstset{%
+		language=#1,
+		commentstyle=\color{OliveGreen}\ttfamily,
+		stringstyle=\color{BurntOrange}\ttfamily,
+		ndkeywordstyle=\color{Cerulean}\bfseries,
+		identifierstyle=\color{Black},
+		keywordstyle=\color{Blue}\bfseries,
+		float=t
+	}
+	\ifthenelse { \equal {\commandkey{caption}} {} }{}%
+	{\lstset{caption=\commandkey{caption}}}% If not empty
+	\ifthenelse { \equal {\commandkey{label}} {} }{}%
+	{\lstset{label=\commandkey{label}}}% If not empty
+}
+
+
+\lstnewenvironment{javacode}[1][]
+{\setcodelanguage[#1]{Java}}
+{}
+
+\lstnewenvironment{jscode}[1][]
+{\setcodelanguage[#1]{JavaScript}}
+{}
+
+\lstnewenvironment{pomcode}[1][]
+{\setcodelanguage[#1]{POM}}
+{}
+
+\lstnewenvironment{ivycode}[1][]
+{\setcodelanguage[#1]{IVY}}
+{}
+
+\lstnewenvironment{htmlcode}[1][]
+{\setcodelanguage[#1]{HTML}}
+{}
+
+\endinput

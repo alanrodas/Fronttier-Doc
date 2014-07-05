@@ -5,6 +5,5 @@
 *.bcf
 *.blg
 *.toc
-*.pdf
 *.run.xml
 *.synctex.gz

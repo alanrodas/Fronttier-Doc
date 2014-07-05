@@ -1,4 +1,6 @@
-\newcommand{\comment}[1]{}
+\newcommand{\define}[2]{
+	\newcommand{#1}{#2\xspace}
+}
 
 \newcommand{\blankpage}{
 	\clearpage
@@ -19,12 +21,27 @@
 	\end{center}
 }
 
-\newcommand{\citesq}[2][]{
-	\ifthenelse { \equal {#1} {} } 
-	{ [\cite{#2}] } % If it's empty
-	{ [\cite[#1]{#2} ] } % If not
+\newcommand{\citesq}[2][]{ %
+	\ifthenelse { \equal {#1} {} }%
+	{[\cite{#2}]}% If it's empty
+	{[\cite[#1]{#2}]}% If not
 }
+
 \newcommand{\citeyearsq}[1]{[\citeyear{#1}]}
+
+\newcommand{\see}[1]{ \footnote{ver sección \ref{#1}.}}
+
+\newcommand{\quoted}[1]{ \emph{"#1"}}
+
+\newcommand{\expl}[1]{ (\emph{#1})}
+
+\newcommand{\printdefinitions}{
+	\clearpage
+	\addcontentsline{toc}{section}{Siglas}
+	\printacronyms
+	\printglossary
+	\clearpage
+}
 
 \DeclareCiteCommand{\citefullauthor}{%
 	\boolfalse{citetracker}%
