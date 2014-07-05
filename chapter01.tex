@@ -94,8 +94,8 @@ cliente-servidor. Ahora los usuarios corrian los programas en su propio equipo, 
 aumentar la velocidad de respuesta. El programa se conectaba a Internet y sincronizaba
 información con un servidor central solo cuando fuera necesario.\\
 Esta arquitectura permitiría una más rápida evolución del software por sobre la opción de
-tener el sistema en un \mainframe, como explica  \citefullauthor{Duncan:1996:ARTICLE} en su
-articulo \citetitle{Duncan:1996:ARTICLE}. Sin embargo, como contrapartida  estos cambios
+tener el sistema en un \mainframe, como explican  \citefullauthor{Duncan:1996:ARTICLE} en su
+artículo \citetitle{Duncan:1996:ARTICLE}. Sin embargo, como contrapartida  estos cambios
 suponen un alto costo de mantenimiento, y en caso de poseer equipos con distintos sistemas
 operativos, un gasto extra en el desarrollo. Esto se debe a la necesidad de generar un
 cliente para cada sistema operativo, y la necesidad de actualizar los mismos en caso de
@@ -147,7 +147,7 @@ Estas aplicaciones comenzaron a copar los mercados empresariales, ya que permit�
 en mantenimiento y desarrollo, a la vez que brindaban la alta usabilidad que se demandaba
 de un sistema empresarial.\\
 Cada vez más soluciones comenzaron a surgir, \emph{Adobe Flex}, \emph{Microsoft Silverlight}
-y \emph{JavFX} \citecp{Clarke:2009:BOOK}. Sin embargo, la falta de estándares llevaría a que
+y \emph{JavaFX} \citesq{Clarke:2009:BOOK}. Sin embargo, la falta de estándares llevaría a que
 se desarrollaran con fuerza los estándares \emph{CSS}\footnote{
 	CSS, acronimo de \emph{\textsc{C}ascading \textsc{S}tyle \textsc{S}heets} (Hojas de
 	Estilo en Cascada) es un lenguaje utilizado para describir el aspecto y el formato de un
@@ -170,8 +170,31 @@ La tendencia marca que las RIAs desarrolladas bajo el estándar HTML5 seguirán 
 norma durante los años venideros. Multples frameworks han aparecido capaces de generar
 rápidamente sistemas web con un \emph{front-end} completamente realizado en HTML5.\\
 
+
+
 \subsection{Acerca de la Java Virtual Machine (JVM)}
 \label{subsec:intro:about_jvm}
+
+La maquina virtual de Java (\emph{Java Virtual Machine}, o simplemente \emph{JVM}) es una
+parte fundamental de la plataforma del lenguaje Java, creada originalmente por \emph{Sun
+Microsystems}. La maquina virtual crea una capa de abstracción entre el sistema operativo
+y el código Java compilado (\emph{Bytecode}). De esta forma, el código Java puede ser
+compilado a bytecode una sola vez, y correrse en cualquier sistema que cuente con una
+JVM.\\
+Con la popularidad de Java, comenzaron a surgir una serie de lenguajes que compilan a este
+bytecode. Estos lenguajes se presentan como alternativas para los programadores de
+la plataforma que buscan una alternativa "superior", en algún aspecto, a Java. Groovy por
+ejemplo, se presenta como un lenguaje dinámico, similar a Ruby; Clojure es una extensión
+de Lisp apuntado a la Programación Concurrente; Scala es un lenguaje que presenta
+características tanto de Programación Funcional como de Programación Orientada a Objectos.
+También existen otra numerosa cantidad de lenguajes, algunos experimentales, algunos con
+una base creciente de usuarios, que corren sobre la plataforma, como también una amplia
+cantidad de adaptaciones de lenguajes populares para que corran en la JVM, como JRuby y
+Jython, versiones de Ruby y Python que compilan a bytecode java.\\
+Una característica interesante de estos lenguajes es que el codigo compilado suele ser
+compatible entre si, es decir, código escrito en Java puede ser ejecutado en Scala,
+codigo Groovy puede ser usado desde Clojure, etc. (Con algunas excepciones).\\
+
 
 
 \subsection{Crecimiento de la JVM como plataforma}
