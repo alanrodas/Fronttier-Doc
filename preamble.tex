@@ -1,26 +1,10 @@
-\documentclass[12pt,spanish,a4paper]{article}
+\newcommand{\loaddef}[1]{%
+	\input{definitions/#1}
+}
 
-\usepackage[spanish]{babel}
-\usepackage[T1]{fontenc}
-
-\usepackage{hyperref}
-\usepackage{keycommand}
-
-\usepackage[style=authoryear, backend=biber, backref=true]{biblatex}
-\renewcommand\nameyeardelim{, }
-
-\usepackage{datetime}
-\newdateformat{monthyear}{\monthname[\THEMONTH] \THEYEAR}
-
-\usepackage{xifthen}
-\usepackage{graphicx}
-\usepackage{tabu}
-
-\usepackage{xspace}
-\usepackage{verbatim}
-\usepackage[framed]{coding}
-\renewcommand{\lstlistingname}{Código}
-
-\usepackage[acronym, toc]{glossaries}
-\glossarystyle{altlist}
-\usepackage[xspace= {true}]{acro}
+\loaddef{imports}
+\loaddef{usercommands}
+\loaddef{definitions}
+\loaddef{glosary}
+\loadpkg[framed]{coding}
+\bibliography{definitions/bibliography}

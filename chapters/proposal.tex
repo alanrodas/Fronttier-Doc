@@ -11,7 +11,7 @@ en \scala y usando \sbt para manejar las \dependencies en el mismo.\\
 Se tomarán como requerimientos una serie de características que a los efectos
 parecen deseables en una herramienta que intenta posicionarse como el
 estándar para manejo de \dependencies de la \viewtier en lenguajes que corren
-sobre la plataforma.\
+sobre la plataforma.\\
 En primer lugar, deberá correr enteramente sobre la \jvm, evitando depender de
 la instalación de software adicional en el equipo y haciendolo independiente
 del sistema operativo, por lo cual, es necesario que se encuentre desarrollada
@@ -28,7 +28,7 @@ herramientas utilizan distintos tipos de archivos de configuración. En lugar de
 forzar un formato especifico para el mismo, el \depmgr desarrollado deberá
 brindar al usuario la posibilidad de usar un formato para el mismo que se
 adecue a sus necesidades\footnote{
-	Por ejemplo, los usuarios de \emph{apache Maven} podrían optar por un archivo
+	Por ejemplo, los usuarios de \apache \maven podrían optar por un archivo
 	de configuración en \xml similar al que acostumbran y conocen, mientras
 	que los usuarios de \sbt podrían elegir un archivo de configuración cuya
 	sintaxis asemeje los usados en esa herramienta. Debería ser lo bastante flexible
@@ -68,6 +68,9 @@ mismos\footnote{
 En forma de resumen y para mayor claridad, se enumeran a continuación todas las
 características mencionadas:
 \begin{itemize}
+	\setlength{\itemsep}{1pt}
+	\setlength{\parskip}{0pt}
+	\setlength{\parsep}{0pt}
 	\item Hecho enteramente sobre la \jvm
 	\item Posibilidad de ser usado desde cualquier lenguaje de la \jvm
 	\item Archivos de configuración personalizados, con varios formatos por defecto
@@ -104,23 +107,32 @@ la extensibilidad.\\
 Se presenta como objetivo el desarrollo de al menos las 
 siguientes características de forma completamente funcionales:
 \begin{itemize}
+	\setlength{\itemsep}{1pt}
+	\setlength{\parskip}{0pt}
+	\setlength{\parsep}{0pt}
 	\item Desarrollo del núcleo del sistema
-	\item Descargar dependencias desde la web vía HTTP
+	\item Descargar dependencias desde la web vía \http
 	\item Descargar desde \gls{github} mediante \git
 	\item Descargar desde un repositorio \svn
-	\item Lectura de archivos de configuración en \xml estilo Maven
-	\item Lectura de archivos de configuración en \xml estilo Ivy
-	\item Lectura de archivos de configuración en estilo \sbt
+	\item Lectura de \conffiles en \xml estilo \apache \maven
+	\item Lectura de \conffiles en \xml estilo \apache \ivy
+	\item Lectura de \conffiles en estilo \sbt
 	\item Agregado de múltiples repositorios
 	\item Usar la herramienta desde la linea de comandos
 	\item Usar la herramienta desde \scala
 	\item Usar la herramienta desde \java
-	\item Integración de la herramienta con Maven
+	\item Integración de la herramienta con \apache \maven
 	\item Integración de la herramienta con \sbt
 	\item Integración de la herramienta con Play! Framework
 \end{itemize}
 Si bien quedarán pendientes muchas tareas para realizar, estas serán abordadas
-en futuros trabajos. Además, la herramienta será liberada como software libre con
-licencia \emph{Apache versión 2}. Esto permitirá que la comunidad de desarrolladores
+en futuros trabajos. Además, la herramienta será liberada como \freesoft con
+licencia \apache versión 2. Esto permitirá que la comunidad de desarrolladores
 expanda la herramienta para funcionar con todos los lenguajes de la \jvm, en muchos
-más \frameworks, y que se integre con una mayor cantidad de procesos.
+más \frameworks, y que se integre con una mayor cantidad de procesos.\\
+Para lograr esto, la documentación del proyecto es sumamente importante. El
+desarrollo debe contar necesariamente con documentación que apunte a explicar
+la estructura del sistema, así como el código utilizado. También resulta
+interesante contar con un centro de referencia para futuros desarrolladores,
+por lo que colocar esta documentación a disposición de la comunidad a través de
+\internet es esencial.

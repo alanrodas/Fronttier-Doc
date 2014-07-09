@@ -43,7 +43,13 @@ finalidad más que la de conectarse al servidor central para realizar peticiones
 y mostrarle los resultados al usuario.\\
 \citeauthor{Stephens:2008:BOOK} también destaca los beneficios de los \mainframes por
 sobre una computadora personal a nivel empresarial. Las características que menciona son:
-\begin{description}
+\begin{description}[
+	font=$\bullet$\enskip,
+	leftmargin={\parindent*4},
+	labelindent=\parindent]
+	\setlength{\itemsep}{1pt}
+	\setlength{\parskip}{0pt}
+	\setlength{\parsep}{0pt}
 	\item[Integridad de datos:] Los datos \textsc{deben} ser correctos.
 	\item[Rendimiento:] Se debe procesar gran cantidad de datos.
 	\item[Respuesta:] El procesamiento debe ser inmediato.
@@ -103,7 +109,7 @@ a comienzos de 1990, se comenzaron a desarrollar los primeros sistemas web.\\
 Los mismos, consistían básicamente en documentos dinámicos, generados con información
 tomada de una base de datos. Gran influencia tuvieron en este tipo de soluciones, la
 creación de lenguajes de programación y tecnologías pensadas para generar documentos
-\gls{html} dinámicamente \citesq[pag 2]{Hunter:2001:BOOK}, como \emph{PHP}, \emph{ASP}
+\html dinámicamente \citesq[pag 2]{Hunter:2001:BOOK}, como \emph{PHP}, \emph{ASP}
 y los \emph{Servlets} de \java.
 La posibilidad de generar \emph{aplicaciones} que corran en el navegador, solucionó las
 problemáticas asociadas a el mantenimiento de los sistemas y al desarrollo para múltiples
@@ -129,11 +135,11 @@ en mantenimiento y desarrollo, a la vez que brindaban la alta usabilidad que se 
 de un sistema empresarial.\\
 Cada vez más soluciones comenzaron a surgir, \emph{Adobe Flex},
 \emph{Microsoft Silverlight} y \emph{JavaFX} \citesq{Clarke:2009:BOOK}. Sin embargo, la
-falta de estándares llevaría a que se desarrollaran con fuerza \gls{css} y
-\gls{js}, tecnologías libres y disponibles en cualquier navegador sin necesidad de
+falta de estándares llevaría a que se desarrollaran con fuerza \css y
+\js, tecnologías libres y disponibles en cualquier navegador sin necesidad de
 instalar software adicional.\\
 Así, en los últimos años,y gracias también al auge de los smartphones y tablets, incapaces
-de correr los anteriormente mencionados \plugins, el llamado \gls{html5}
+de correr los anteriormente mencionados \plugins, el llamado \html5
 pasaría a transformarse en el estándar para el desarrollo de \rias
 \citesq{David:2013:BOOK}.\\
 La tendencia marca que las \rias desarrolladas bajo el estándar \htmlv seguirán siendo la
@@ -187,9 +193,9 @@ la \jvm del sistema operativo Android \citesq{Wikipedia:2012:ONLINE}.\\
 popularidad de lenguajes, como la renombrada estadística TIOBE que a la fecha de esta
 publicación ubica a \java en segundo lugar [\citefullauthor{TIOBE:2014:ONLINE},
 \citeyear{TIOBE:2014:ONLINE}]. La estadística \emph{"transparente"} creada por
-\citefullauthor{Montmollin:2013:ONLINE}, que publica el código de forma open source y
+\citefullauthor{Montmollin:2013:ONLINE}, que publica el código de forma \opensource y
 sus reglas online, muestra al lenguaje de Oracle en la misma posición
-\citesq{Montmollin:2013:ONLINE}, mientras que la otra herramienta open source que
+\citesq{Montmollin:2013:ONLINE}, mientras que la otra herramienta \opensource que
 permite medir la popularidad de los lenguajes, PyPL, de
 \citefullauthor{Carbonelle:2014:ONLINE}, lo muestra en primer lugar
 \citesq{Carbonelle:2014:ONLINE}.\\
@@ -267,7 +273,7 @@ paradigma.
 \end{figure}
 
  
-\subsubsection{Reutilización de código mediante dependencias}
+\subsubsection{Reutilización de código mediante \dependencies}
 \label{susubbsec:intro:jvm_dev:dependencies}
 
 Prácticamente ningún desarrollador comienza una aplicación completamente desde
@@ -284,8 +290,8 @@ Las \dependencies no manejadas son código que se agrega manualmente al
 proyecto mediante la clásica técnica de \quoted{copiar y pegar} o agregando los archivos
 correspondientes a esa \dependency en alguna carpeta del proyecto (Proceso al que
 se denominará \quoted{instalar}). Por su parte, las manejadas, consisten en algún tipo de
-descripción en un archivo de configuración o símil que identificará a las \dependencies
-requeridas. Un programa externo evaluara nuestro archivo de configuración y se encargará
+descripción en un \conffile o símil que identificará a las \dependencies
+requeridas. Un programa externo evaluara nuestro \conffile y se encargará
 de instalar nuestras \dependencies declaradas, estos programas son conocidos como
 \depmgrs.\\
 Las \dependencies no manejadas suelen implicar una serie de pasos repetitivos y propensos
@@ -310,20 +316,20 @@ desarrolladores que trabajan en lenguajes de la \jvm en la actualidad.
 El desarrollo en la plataforma \java se volvió muy popular rápidamente, y por tanto,
 un gran numero de herramientas surgieron para asistir al desarrollador al momento
 de programar.\\
-En el ámbito del manejo de \dependencies en la \logictier la herramienta \emph{Maven}
-de la fundación \emph{Apache} se ha posicionado como el estándar de facto\footnote{
-	Si bien \emph{Apache Maven} es en realidad no solo un \depmgr
+En el ámbito del manejo de \dependencies en la \logictier la herramienta \maven
+de la fundación \apache se ha posicionado como el estándar de facto\footnote{
+	Si bien \apache \maven es en realidad no solo un \depmgr
 	sino un administrador de proyectos, provee la funcionalidad antes mencionada y
 	la misma se ha vuelto un estándar.
 } \citesq{Sonatype:2008:BOOK}. Otro de los proyectos que se han posicionado en esta área
-es \emph{Apache Ivy}, que se concentra solamente en el manejo de \dependencies.\\
-Maven hace uso de un archivo de configuración escrito en \gls{xml}\footnote{
-	Este archivo es comunmente denominado POM, ya que el nombre del archivo debe ser
+es \apache \ivy, que se concentra solamente en el manejo de \dependencies.\\
+Maven hace uso de un \conffile escrito en \xml\footnote{
+	Este archivo es comúnmente denominado POM, ya que el nombre del archivo debe ser
 	pom.xml.
 }. El \coderef{code:intro:jvm:maven_pom}
-muestra un ejemplo de este tipo de archivo de configuración.
+muestra un ejemplo de este tipo de \conffile.
 \\
-\begin{pomcode}[caption=Configuración de \dependencies en Maven mediante archivo POM,
+\begin{pomcode}[caption=Configuración de \dependencies en \maven mediante archivo POM,
 	label=code:intro:jvm:maven_pom]
 <project>
 	...
@@ -357,12 +363,12 @@ El \coderef{code:intro:jvm:ivy_module} es un ejemplo del mismo.
 \end{ivycode}
 
 Con la aparición de nuevos lenguajes para la \jvm comenzaron a surgir nuevos
-\depmgrs, como Grape o Gradle para Groovy, \sbt para Scala y
-Leiningen para Clojure, y Apache Buildr como propuesta multilenguaje. Cada uno
-de ellos utilizan un archivo de configuración con
+\depmgrs, como Grape o Gradle para \groovy, \sbt para \scala y
+Leiningen para \clojure, y \apache Buildr como propuesta multilenguaje. Cada uno
+de ellos utilizan un \conffile con
 distinta sintaxis \citesq[pág. 569]{Alexander:2013:BOOK}. El
 \coderef{code:intro:jvm:sbt_module_add} muestra un ejemplo de
-la declaración de una \dependency en el archivo de configuración de \sbt.
+la declaración de una \dependency en el \conffile de \sbt.
 \\
 \begin{javacode}[caption=Dependencia de SpringFramework 3.1.1 para \sbt,
 	label=code:intro:jvm:sbt_module_add]
@@ -411,7 +417,7 @@ Las \cdn surgen con la idea de agrupar el contenido disponible\footnote{
 	en proyectos de desarrollo de software, sin embargo es uno de los usos
 	posibles de este tipo de redes y ha sido uno de los usos más comunes.
 }.\\
-Las \gls{cdn} permiten al usuario insertar en su codigo HTML una clausula que
+Las \cdn permiten al usuario insertar en su código \html una clausula que
 importa automáticamente la dependencia requerida desde el servidor más cercano.
 \\
 \begin{htmlcode}[caption=Dependencias agregadas mediante \cdn,
@@ -461,11 +467,11 @@ forma en que lo hacen los manejadores de la \logictier.\\
 	otras cosas además del manejo de dependencias, como procesos de compilación.
 }, son casi con seguridad, los más populares de estos sistemas. Ambos son modulo de
 la plataforma \gls{node} y poseen formas de manejar las \dependencies mediante un
-archivo de configuración. Sin embargo, ambas requieren en la mayoría de los casos
-contar con herramientas externas como git, ya que se desentienden del proceso de
+\conffile. Sin embargo, ambas requieren en la mayoría de los casos
+contar con herramientas externas como \git, ya que se desentienden del proceso de
 mantenimiento de repositorios \cite{Bower:ONLINE}.\\
 \emph{RequireJS} y \emph{Browserify} son otras soluciones que manejan las dependencias
-\js solamente y no utilizan la técnica de archivos de configuración
+\js solamente y no utilizan la técnica de \conffiles
 \citesq{Franko:2013:BOOK}.\\
 Todas estas soluciones se presentan bastante incompletas en comparación a las
 disponibles en la \viewtier. Además, al requerir herramientas que no son

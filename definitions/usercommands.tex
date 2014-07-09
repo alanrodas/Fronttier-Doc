@@ -21,6 +21,34 @@
 	\end{center}%
 }
 
+\newcommand{\printdefinitions}{%
+	\clearpage%
+	\addcontentsline{toc}{section}{Siglas}%
+	\acuseall
+	\glsaddall
+	\printacronyms%
+	\printglossary%
+	\clearpage%
+}
+
+\newcommand{\loadchapter}[1]{%
+	\input{chapters/#1}
+	\jump[2]
+}
+
+\newcommand{\loadpage}[1]{%
+	\input{pages/#1}
+	\jump[2]
+}
+
+\newcommand{\loadimg}[2][]{%
+	\includegraphics[#1]{figures/#2}
+}
+
+\newcommand{\loadpkg}[2][]{%
+	\usepackage[#1]{packages/#2}
+}
+
 \newcommand{\citesq}[2][]{%
 	\ifthenelse { \equal {#1} {} }%
 	{[\cite{#2}]}% If it's empty
@@ -38,14 +66,6 @@
 \newcommand{\figref}[1]{figura \ref{#1}}
 
 \newcommand{\coderef}[1]{código \ref{#1}}
-
-\newcommand{\printdefinitions}{%
-	\clearpage%
-	\addcontentsline{toc}{section}{Siglas}%
-	\printacronyms%
-	\printglossary%
-	\clearpage%
-}
 
 \DeclareCiteCommand{\citefullauthor}{%
 	\boolfalse{citetracker}%

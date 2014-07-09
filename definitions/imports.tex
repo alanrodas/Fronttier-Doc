@@ -1,0 +1,26 @@
+\documentclass[12pt,spanish,a4paper]{article}
+
+\usepackage[spanish]{babel}
+\usepackage[T1]{fontenc}
+
+\usepackage[acronym, toc, nonumberlist]{glossaries}
+\glossarystyle{altlist}
+\usepackage[xspace= {true}]{acro}
+
+\usepackage{hyperref}
+\usepackage{keycommand}
+
+\usepackage[style=authoryear, backend=biber, backref=true]{biblatex}
+\renewcommand\nameyeardelim{,}
+
+\usepackage{datetime}
+\newdateformat{monthyear}{\monthname[\THEMONTH] \THEYEAR}
+
+\usepackage{xifthen}
+\usepackage{graphicx}
+\usepackage{tabu}
+
+\usepackage{xspace}
+\usepackage{verbatim}
+
+\usepackage{enumitem}

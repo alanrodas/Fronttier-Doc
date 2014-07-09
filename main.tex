@@ -1,6 +1,5 @@
 % !TeX encoding = UTF-8
 % !TeX spellcheck = es_AR
-% Compile with XeLaTeX, XeTeX and Biber
 % arara: xelatex
 % arara: biber
 % arara: makeglossaries
@@ -8,24 +7,20 @@
 % arara: xelatex
 
 \input{preamble}
-\input{usercommands}
-\input{definitions}
-\input{glosary}
-\bibliography{bibliography}
 
 \begin{document}
-	\include{title}
+	\loadpage{title}
 	\blankpage
-	\include{thanks}
+	\loadpage{thanks}
 	\blankpage
 	\tableofcontents
 	\blankpage
-	\input{abstract}
-	\input{chapter01}
-	\input{chapter02}
-	\input{chapter03}
-	\input{chapter04}
-	\input{chapter05}
+	\loadchapter{abstract}
+	\loadchapter{intro}
+	\loadchapter{proposal}
+	\loadchapter{development}
+	\loadchapter{conclutions}
+	\loadchapter{futurework}
 	\blankpage
 	\printdefinitions
 	\printbibliography[heading=bibintoc]
