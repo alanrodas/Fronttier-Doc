@@ -1,22 +1,22 @@
 \section{Introducción}
 \label{sec:intro}
 
-En la presente sección intentaré explicar brevemente el contexto actual del desarrollo
+En la presente sección se intentará explicar brevemente el contexto actual del desarrollo
 de software y las motivaciones del presente trabajo, así como del lenguaje de programación
 elegido para el desarrollo.\\
-Comenzaré por un análisis sobre la evolución de las tecnologías actuales y como estas
-han derivado a la generación de aplicaciones hechas mayormente en \htmlv. Luego enumeraré
+Se comenzará por un análisis sobre la evolución de las tecnologías actuales y como estas
+han derivado a la generación de aplicaciones hechas mayormente en \htmlv. Luego se enumeraran
 los distintos factores que inciden sobre la elección del lenguaje de programación a
 utilizar, mostrando como los lenguajes para la \jvm son una buena elección debido a su
 popularidad y a la compatibilidad de código entre lenguajes que corren sobre la
-plataforma. Finalmente explicaré la estructura básica del aplicaciones web desarrolladas
+plataforma. Finalmente se explicará la estructura básica de las aplicaciones web desarrolladas
 sobre lenguajes de la \jvm, y como se manejan las \dependencies en estas aplicaciones.\\
 
 \subsection{Sobre los sistemas web}
 \label{subsec:intro:about_web}
 
 Si bien no es el objetivo de este documento explicar en detalle la historia de los cambios
-en las arquitecturas de software, en este apartado intentaré dar una breve muestra de las
+en las arquitecturas de software, este apartado intentará dar una breve muestra de las
 transformaciones que ha sufrido la industria de desarrollo de sistemas en los últimos
 tiempos, y como estas han llevado a que los sistemas web sean hoy en día una de las
 opciones más utilizadas en el ámbito empresarial.
@@ -28,13 +28,13 @@ En las décadas de 1960 y 1970, comienza en el mundo un proceso lento pero incre
 computarización de la información. Las computadoras dejan de ser \quoted{juguetes}
 científicos para pasar a ser complejas maquinarias con verdadera utilidad practica
 en distintas industrias.\\
-En este contexto, varias empresas comienzan a \emph{informatizarse}. Bancos, petroleras
+Durante esos años varias empresas comienzan a \emph{informatizarse}. Bancos, petroleras
 y otros, compran grandes computadoras capaces de almacenar toda su información o procesar
 complejos cálculos matemáticos en poco tiempo.\\
 En este contexto, múltiples empresas como \emph{IBM}, \emph{RCA}, y 
 \emph{General Electric}, comenzaron a fabricar gigantescas computadoras de precio cada
 vez más económico. Estas maquinas evolucionarían poco a poco hasta convertirse en lo que
-hoy llamamos \mainframes.\\
+hoy se conocen como \mainframes.\\
 En este sentido, \citefullauthor{Stephens:2008:BOOK} en su libro
 \citetitle{Stephens:2008:BOOK} \citeyearsq{Stephens:2008:BOOK} describe a un \mainframe
 como una computadora muy grande, con una base de datos de alto rendimiento, a la cual se
@@ -44,15 +44,15 @@ y mostrarle los resultados al usuario.\\
 \citeauthor{Stephens:2008:BOOK} también destaca los beneficios de los \mainframes por
 sobre una computadora personal a nivel empresarial. Las características que menciona son:
 \begin{description}
-	\item[Integridad de datos]: Los datos \textsc{deben} ser correctos.
-	\item[Rendimiento]: Se debe procesar gran cantidad de datos.
-	\item[Respuesta]: La procesamiento debe ser inmediato.
-	\item[Recuperación ante desastres]: En caso de un fallo, se debe volver a estar
+	\item[Integridad de datos:] Los datos \textsc{deben} ser correctos.
+	\item[Rendimiento:] Se debe procesar gran cantidad de datos.
+	\item[Respuesta:] El procesamiento debe ser inmediato.
+	\item[Recuperación ante desastres:] En caso de un fallo, se debe volver a estar
 	operativo inmediatamente.
-	\item[Usabilidad]: Debe hacer lo que se requiere, cuando se requiere.
-	\item[Confiabilidad]: No debe fallar y siempre debe estar disponible.
-	\item[Auditoria]: Ser capaz de saber quien realizo que acción en el equipo.
-	\item[Seguridad]: Solo aquellos que pueden realizar una acción pueden hacerlo.
+	\item[Usabilidad:] Debe hacer lo que se requiere, cuando se requiere.
+	\item[Confiabilidad:] No debe fallar y siempre debe estar disponible.
+	\item[Auditoria:] Ser capaz de saber quien realizó qué acción en el equipo.
+	\item[Seguridad:] Solo aquellos que pueden realizar una acción pueden hacerlo.
 \end{description}
 Estas características son todavía buscadas en los grandes \mainframes de la actualidad,
 y resultan fundamentales en emprendimientos críticos, por ejemplo, sistemas bancarios,
@@ -82,8 +82,8 @@ La posibilidad de ejecutar programas en cada \ac{pc} dio lugar a nuevas arquitec
 aumentar la velocidad de respuesta. El programa se conectaba a \internet y sincronizaba
 información con un servidor central solo cuando fuera necesario.\\
 Esta arquitectura permitiría una más rápida evolución del software por sobre la opción de
-tener el sistema en un \mainframe, como explican  \citefullauthor{Duncan:1996:ARTICLE}
-en su artículo \citetitle{Duncan:1996:ARTICLE}. Sin embargo, como contrapartida  estos
+tener el sistema en un \mainframe, como explican \citefullauthor{Duncan:1996:ARTICLE}
+en su artículo \citetitle{Duncan:1996:ARTICLE}\period Sin embargo, como contrapartida  estos
 cambios suponen un alto costo de mantenimiento, y en caso de poseer equipos con distintos
 sistemas operativos, un gasto extra en el desarrollo. Esto se debe a la necesidad de
 generar un cliente para cada sistema operativo, y la necesidad de actualizar los mismos
@@ -92,8 +92,8 @@ en caso de futuros cambios\footnote{
 	lo que la instalación de una nueva versión del sistema requería presencia física en el
 	equipo.
 }.
-demuestra que, independientemente de los costos, el factor más incidente en el cambio es
-la necesidad de mantener el sistema al día con las necesidades de la empresa.
+Así, los autores demuestran que, independientemente de los costos, el factor más incidente
+en el cambio es la necesidad de mantener el sistema al día con las necesidades de la empresa.
 
 \subsubsection{Navegadores y primeros sistemas web}
 \label{subsubsec:intro:about_web:web}
@@ -121,15 +121,15 @@ presentaban las aplicaciones web frente a las tradicionales de \clientserver de
 escritorio.\\
 En un primer lugar, software en forma de complementos (\plugins) que permitían correr
 algún lenguaje especial en los navegadores
-fueron creados. Uno de los más populares fue \emph{Flash} de \emph{Adobe}, que todavía
-continua presente hoy en día. \java tampoco se quedo atrás y presentó sus \servlets,
+fueron creados. Uno de los más populares fue \emph{Flash} de \emph{Adobe}, que continua
+siendo utilizado hoy en día. \java tampoco se quedo atrás y presentó sus \servlets,
 una forma de embeber código Java en páginas \html.\\
 Las \ria comenzaron a copar los mercados empresariales, ya que permitían ahorrar
 en mantenimiento y desarrollo, a la vez que brindaban la alta usabilidad que se demandaba
 de un sistema empresarial.\\
 Cada vez más soluciones comenzaron a surgir, \emph{Adobe Flex},
 \emph{Microsoft Silverlight} y \emph{JavaFX} \citesq{Clarke:2009:BOOK}. Sin embargo, la
-falta de estándares llevaría a que se desarrollaran con fuerza los estándares \gls{css} y
+falta de estándares llevaría a que se desarrollaran con fuerza \gls{css} y
 \gls{js}, tecnologías libres y disponibles en cualquier navegador sin necesidad de
 instalar software adicional.\\
 Así, en los últimos años,y gracias también al auge de los smartphones y tablets, incapaces
@@ -146,8 +146,8 @@ rápidamente sistemas web con una interfaz completamente realizado en \htmlv.\\
 \label{subsec:intro:about_jvm}
 
 Con la popularidad de \java, comenzaron a surgir una serie de lenguajes que compilan a
-\bytecode para la \gls{jvm}. Estos lenguajes se presentan como alternativas para los
-programadores de la plataforma que buscan una alternativa "superior", en algún aspecto,
+\bytecode para la \acl{jvm}. Estos lenguajes se presentan como alternativas para los
+programadores de la plataforma que buscan una opción "superior", en algún aspecto,
 a \java. \groovy por ejemplo, se presenta como un lenguaje dinámico, similar a Ruby;
 \clojure es una extensión de Lisp apuntado a la Programación Concurrente; \scala es un
 lenguaje que presenta características tanto de Programación Funcional como de
@@ -185,10 +185,11 @@ la \jvm del sistema operativo Android \citesq{Wikipedia:2012:ONLINE}.\\
 	peso a las mismas y obtendrá distintos resultados.
 }, uno de los lenguajes más populares. Así lo demuestran las estadísticas de análisis de
 popularidad de lenguajes, como la renombrada estadística TIOBE que a la fecha de esta
-publicación ubica a \java en segundo lugar \citesq{TIOBE:2014:ONLINE}. La estadística
-\emph{"transparente"} creada por \citefullauthor{Montmollin:2013:ONLINE}, que publica el
-código de forma open source y sus reglas online, muestra al lenguaje de Oracle en la misma
-posición \citesq{Montmollin:2013:ONLINE}, mientras que la otra herramienta open source que
+publicación ubica a \java en segundo lugar [\citefullauthor{TIOBE:2014:ONLINE},
+\citeyear{TIOBE:2014:ONLINE}]. La estadística \emph{"transparente"} creada por
+\citefullauthor{Montmollin:2013:ONLINE}, que publica el código de forma open source y
+sus reglas online, muestra al lenguaje de Oracle en la misma posición
+\citesq{Montmollin:2013:ONLINE}, mientras que la otra herramienta open source que
 permite medir la popularidad de los lenguajes, PyPL, de
 \citefullauthor{Carbonelle:2014:ONLINE}, lo muestra en primer lugar
 \citesq{Carbonelle:2014:ONLINE}.\\
@@ -196,13 +197,13 @@ Además, \citefullauthor{Kunst:2014:ONLINE} ha desarrollado un gráfico en donde
 cantidad de líneas de código en \gls{github} por sobre las menciones en
 \gls{stackoverflow}, mostrando a \java por sobre los más populares, pero también a los
 lenguajes que corren sobre la \jvm\footnote{
-	Entre los lenguajes para la \jvm encontramos a \scala, \clojure, \groovy, AspectJ,
+	Entre los lenguajes para la \jvm se encuentran \scala, \clojure, \groovy, AspectJ,
 	Ceylon, Fantom, Fortress, Frege, Gosu, Ioke, Jelly, Kotlin, Mirah, Processing, X10,
-	Xtend, Rhino, JRuby, Jython. Aunque no son todos y no todos se encuentran mencionados
+	Xtend, Rhino, JRuby, Jython, entre otros. Aunque no todos se encuentran mencionados
 	en la gráfica.
 } como de alto interés.\\
 Queda entonces patente que los lenguajes que se ejecutan en la \jvm tienen un uso cada vez
-mayor. Empero, la diferencia se volvería aun más grande si consideramos el uso de los
+mayor. Empero, la diferencia se volvería aún más grande si se considera el uso de los
 lenguajes para desarrollo de soluciones web.\\
 Si bien no existen estadísticas que confirmen esto, es prácticamente reconocido por
 cualquier programador que la ventaja que se lee en las estadísticas por parte del lenguaje
@@ -218,10 +219,10 @@ de hecho, tiende a complementarlos, ya que es una parte importante de las
 \subsection{Desarrollo de sistemas web en la \jvm}
 \label{subsec:intro:jvm_dev}
 
-Al desarrollar sistemas web podemos elegir cualquiera de los lenguajes para
+Al desarrollar sistemas web se puede elegir cualquiera de los lenguajes para
 la \jvm, y dentro del mismo, cualquiera de los numerosos \frameworks que trabajan
 con \htmlv existentes. Sin embargo hay ciertas constantes comunes de todos los
-lenguajes y \frameworks antes mencionados. A continuación analizaremos estos
+lenguajes y \frameworks antes mencionados. A continuación se analizaran estos
 componentes comunes para comprender la forma de desarrollar en los mismos.
 
 \subsubsection{Estructura común de sistemas web}
@@ -240,16 +241,15 @@ La capa de lógica de negocios es la que contiene el código de las competencias
 aplicación, es decir, las cosas que la aplicación puede hacer, su funcionalidad.
 Finalmente, la capa de interfaz es la que permite acceder a la funcionalidad y visualizar
 los datos a los usuarios o clientes \citesq[pag 29-30]{Barish:2002:BOOK}.
-La figura \ref{fig:intro:jvm:web_arch} muestra la arquitectura básica de una aplicación
+La \figref{fig:intro:jvm:web_arch} muestra la arquitectura básica de una aplicación
 web según este esquema.\\
-aplicación sea una \ria. es decir, todo código \js y archivo \css necesario.\\
 En los últimos años, el crecimiento de las tecnologías móviles han hecho que la
 arquitectura cambie a una más orientada a servicios, donde el servidor no genera
 documentos que serán procesados por el usuario, sino que este, consumirá solamente
 datos expuestos por el servidor, encargándose el cliente de la parte de la interfaz.
 De esta forma, un mismo sistema web puede ser utilizado para mostrar una página en un
 navegador, o por una aplicación para teléfonos móviles\citesq{MacVittie:2008:ONLINE}.
-La figura \ref{fig:intro:jvm:new_web_arch} muestra la arquitectura con este nuevo
+La \figref{fig:intro:jvm:new_web_arch} muestra la arquitectura con este nuevo
 paradigma.
 
 \begin{figure}[t]
@@ -271,34 +271,37 @@ paradigma.
 \label{susubbsec:intro:jvm_dev:dependencies}
 
 Prácticamente ningún desarrollador comienza una aplicación completamente desde
-cero, haciendo a la conocida frase \emph{"Pararse sobre hombros de gigantes"} una
+cero, haciendo a la conocida frase \quoted{Pararse sobre hombros de gigantes} una
 constante en el desarrollo de software, en especial en el empresarial. Así, existen
 numerosos \frameworks, \toolkits, bibliotecas, y porciones de código que los
 desarrolladores pueden importar en el propio, de forma de obtener funcionalidades
 genéricas previamente desarrolladas.\\
-Llamaremos a estas porciones de código de terceros que utilizaremos en nuestros
-proyectos nuestras \emph{dependencias}.Así, una dependencia podría definirse como
-una porción de código de terceros que nuestro proyecto necesita para funcionar
-correctamente.\\
-Podemos distinguir dos tipos de dependencias, las manejadas y las no manejadas.
-Las dependencias no manejadas son código que agregaremos manualmente a nuestro
-proyecto mediante la clásica técnica de "copiar y pegar" o agregando los archivos
-correspondientes a esa dependencia en alguna carpeta de nuestro proyecto (Proceso que
-denominaremos "instalar"). Por su parte, las manejadas, consisten en algún tipo de
-descripción en un archivo de configuración o símil que identificará a las dependencias
+Estas porciones de código de terceros que utilizan los desarrolladores en sus
+proyectos recibe el nombre de \dependencies. Las mismas son necesarias
+para que un proyecto funcione correctamente.\\
+Se pueden distinguir dos tipos de \dependencies, las manejadas y las no manejadas.
+Las \dependencies no manejadas son código que se agrega manualmente al
+proyecto mediante la clásica técnica de \quoted{copiar y pegar} o agregando los archivos
+correspondientes a esa \dependency en alguna carpeta del proyecto (Proceso al que
+se denominará \quoted{instalar}). Por su parte, las manejadas, consisten en algún tipo de
+descripción en un archivo de configuración o símil que identificará a las \dependencies
 requeridas. Un programa externo evaluara nuestro archivo de configuración y se encargará
-de instalar nuestras dependencias declaradas, llamaremos a estos programas
-\emph{manejadores de dependencias}.\\
-Las dependencias no manejadas suelen implicar una serie de pasos repetitivos y propensos
+de instalar nuestras \dependencies declaradas, estos programas son conocidos como
+\depmgrs.\\
+Las \dependencies no manejadas suelen implicar una serie de pasos repetitivos y propensos
 a errores que el usuario debe realizar con el objetivo de poder correr su código. Por su
-parte, las dependencias manejadas son preferentes, ya que eliminan errores comunes y
-ahorran tiempo y trabajo a los desarrolladores. Además, los manejadores de dependencias
-suelen ahorrar el trabajo que implica instalar las dependencias de nuestras
-dependencias \citesq{Larman:2010:BOOK}.\\
-Finalmente, en este escrito, identificaremos dos tipos más de dependencias. las de la
+parte, las \dependencies manejadas son preferentes, ya que eliminan errores comunes y
+ahorran tiempo y trabajo a los desarrolladores. Además, los \depmgrs
+suelen ahorrar el trabajo que implica instalar las \dependencies anidadas\footnote{
+	Asuma el lector un proyecto \emph{A} con una \dependency \emph{B}. El paquete \emph{B}
+	es a su vez un proyecto con \dependencies, por ejemplo \emph{C}. Para que \emph{A}
+	funcione correctamente, requiere \emph{B} y este a su vez requiere \emph{C}, haciendo
+	que de forma transitiva \emph{A} requiera \emph{C}.
+} \citesq{Larman:2010:BOOK}.\\
+Finalmente, en este escrito, se identificaran dos tipos más de dependencias. las de la
 \logictier, dadas por \emph{paquetes} de código \java compilado (archivos .jar o .war),
 y las de \viewtier que consisten en, pero no se limitan a, archivos \css y \js.\\
-En las subsecciones siguientes veremos como estas dependencias son abordadas por los
+En las subsecciones siguientes se verá como estas dependencias son abordadas por los
 desarrolladores que trabajan en lenguajes de la \jvm en la actualidad.
 
 \subsubsection{Dependencias manejadas de la \logictier}
@@ -314,13 +317,14 @@ de la fundación \emph{Apache} se ha posicionado como el estándar de facto\foot
 	la misma se ha vuelto un estándar.
 } \citesq{Sonatype:2008:BOOK}. Otro de los proyectos que se han posicionado en esta área
 es \emph{Apache Ivy}, que se concentra solamente en el manejo de \dependencies.\\
-Maven hace uso de un archivo de configuración escrito en XML\footnote{
+Maven hace uso de un archivo de configuración escrito en \gls{xml}\footnote{
 	Este archivo es comunmente denominado POM, ya que el nombre del archivo debe ser
 	pom.xml.
-}. El siguiente código
+}. El \coderef{code:intro:jvm:maven_pom}
 muestra un ejemplo de este tipo de archivo de configuración.
 \\
-\begin{pomcode}[caption=Configuración de \dependencies en Maven mediante archivo POM]
+\begin{pomcode}[caption=Configuración de \dependencies en Maven mediante archivo POM,
+	label=code:intro:jvm:maven_pom]
 <project>
 	...
 	<dependencies>
@@ -338,10 +342,11 @@ muestra un ejemplo de este tipo de archivo de configuración.
 </project>
 \end{pomcode}
 
-Ivy utiliza también archivos XML, pero estos son más compactos que los de Maven.
-El siguiente es un ejemplo del mismo.
+Ivy utiliza también archivos \xml, pero estos son más compactos que los de Maven.
+El \coderef{code:intro:jvm:ivy_module} es un ejemplo del mismo.
 \\
-\begin{ivycode}[caption=Archivo de configuración de Ivy]
+\begin{ivycode}[caption=Archivo de configuración de Ivy,
+	label=code:intro:jvm:ivy_modulue]
 <ivy-module version="2.0">
 	<info organisation="org.apache" module="hello-ivy"/>
 	<dependencies>
@@ -352,17 +357,20 @@ El siguiente es un ejemplo del mismo.
 \end{ivycode}
 
 Con la aparición de nuevos lenguajes para la \jvm comenzaron a surgir nuevos
-\depmgrs, como Grape o Gradle para Groovy, SBT para Scala y
+\depmgrs, como Grape o Gradle para Groovy, \sbt para Scala y
 Leiningen para Clojure, y Apache Buildr como propuesta multilenguaje. Cada uno
 de ellos utilizan un archivo de configuración con
-distinta sintaxis \citesq[pág. 569]{Alexander:2013:BOOK}.
+distinta sintaxis \citesq[pág. 569]{Alexander:2013:BOOK}. El
+\coderef{code:intro:jvm:sbt_module_add} muestra un ejemplo de
+la declaración de una \dependency en el archivo de configuración de \sbt.
 \\
-\begin{javacode}[caption=Dependencia de SpringFramework 3.1.1 para SBT]
+\begin{javacode}[caption=Dependencia de SpringFramework 3.1.1 para \sbt,
+	label=code:intro:jvm:sbt_module_add]
 libraryDependencies += "org.springframework.data" %  "spring-data-neo4j" %  "3.1.1.RELEASE"
 \end{javacode}
 
 A pesar de este hecho, todos los \depmgrs trabajan bajo el
-estandar pre-impuesto por Maven, siendo así al punto tal de que el sitio
+estándar pre-impuesto por Maven, siendo así al punto tal de que el sitio
 \gls{mvnrepo} es el centro de referencia al momento de buscar dependencias.
 
 \subsubsection{Dependencias no manejadas de \viewtier}
@@ -375,20 +383,20 @@ corran en la misma. La mayoría de estas \dependencies consisten en archivos
 \css y \js, los cuales suelen ser descargados manualmente a través de la
 página del creador del código (No existen repositorios centralizados como
 en el caso de las \dependencies de la \logictier). Luego, los archivos deben
-ser copiados a alguna carpeta del proyecto (La ubicación exacta depende de
+ser copiados a alguna carpeta del proyecto (la ubicación exacta depende de
 la estructura del proyecto y por tanto debe ser recordada por el programador)
 para encontrarse finalmente disponibles para su importación y uso en el código
 del usuario.\\
 Si bien el proceso parece sencillo, las aplicaciones web se han vuelto cada
 vez más y más complejas. Las posibilidades que brindan los navegadores aumentan
-y por tanto, también aumentan las \dependencies, ya que se requieren cada vez
-cosas más y más especificas\footnote{
+y, por tanto, también aumentan las \dependencies ya que se requieren cada vez
+cosas más especificas\footnote{
 	Un claro ejemplo de esto son las \gls{webfonts}. Las mismas
 	no comenzaron a ser comunes sino hasta hace unos pocos años, y hoy en día
 	son usadas en enorme cantidad de sitios.
 }.\\
 A su vez, los tipos de \dependency son más variados (No son solo archivos jar o war),
-dando por resultado un catalogo mucho más amplio, donde una misma \dependency no
+dando por resultado un catálogo mucho más amplio, donde una misma \dependency no
 necesariamente consiste en un único archivo, sino en múltiples archivos de distinto
 formato que deben ser agregados al proyecto de una forma especifica. La falta de un
 lugar que agrupe
@@ -406,7 +414,8 @@ Las \cdn surgen con la idea de agrupar el contenido disponible\footnote{
 Las \gls{cdn} permiten al usuario insertar en su codigo HTML una clausula que
 importa automáticamente la dependencia requerida desde el servidor más cercano.
 \\
-\begin{htmlcode}[caption=Dependencias agregadas mediante \cdn]
+\begin{htmlcode}[caption=Dependencias agregadas mediante \cdn,
+	label=code:intro:cdn:cdn_deps]
 <html>
 	<head>
 		...
@@ -425,15 +434,15 @@ importa automáticamente la dependencia requerida desde el servidor más cercano
 </html>
 \end{htmlcode}
 
-El ejemplo anterior utiliza la \cdn de \citeauthor{GoogleCDN:ONLINE}
+El \coderef{code:intro:cdn:cdn_deps} utiliza la \cdn de \citeauthor{GoogleCDN:ONLINE}
 (\citeurl{GoogleCDN:ONLINE}) una de las más populares y confiables junto con la de
 \citeauthor{MicrosoftCDN:ONLINE} (\citeurl{MicrosoftCDN:ONLINE}) y los sitios
 \citeurl{jsDelivrCDN:ONLINE} y \citeurl{CDNjs:ONLINE}.\\
-Las \cdns no solo brindan el beneficio de facilitarnos el manejo de dependencias,
-sino que a su vez le ahorrar carga a los servidores de nuestra aplicación, que se
-ahorra trabajo ya que debe servir menos archivos, y puede, en teoría, ser beneficioso
+Las \cdns no solo brindan el beneficio de facilitar el manejo de dependencias,
+sino que a su vez le ahorra trabajo a los servidores de nuestra aplicación, que no
+requiere servir algunos archivos, y puede, en teoría, ser beneficioso
 para los usuarios, ya que el servidor de la \cdn podría estar más cerca de su área que
-el de la aplicación, reduciendo los tiempos de descarga.\\
+el de la aplicación, facilitando la carga del sitio.\\
 Como contrapartida, las \cdns suelen tener una gestión centralizada, con lo cual es
 difícil contar con las ultimas versiones, o con bibliotecas que los administradores
 del mismo decidan no colocar. Así, muchas bibliotecas y \frameworks no se encuentran
@@ -450,17 +459,17 @@ forma en que lo hacen los manejadores de la \logictier.\\
 \emph{Bower} y \emph{Component} \footnote{
 	Component es más similar a Maven ya que se encarga de muchas
 	otras cosas además del manejo de dependencias, como procesos de compilación.
-} son, casi con seguridad, los más popular de estos sistemas. Ambos son modulo de
+}, son casi con seguridad, los más populares de estos sistemas. Ambos son modulo de
 la plataforma \gls{node} y poseen formas de manejar las \dependencies mediante un
 archivo de configuración. Sin embargo, ambas requieren en la mayoría de los casos
 contar con herramientas externas como git, ya que se desentienden del proceso de
-mantenimiento de repositorios \citesq{Bower:ONLINE}.\\
+mantenimiento de repositorios \cite{Bower:ONLINE}.\\
 \emph{RequireJS} y \emph{Browserify} son otras soluciones que manejan las dependencias
 \js solamente y no utilizan la técnica de archivos de configuración
 \citesq{Franko:2013:BOOK}.\\
 Todas estas soluciones se presentan bastante incompletas en comparación a las
 disponibles en la \viewtier. Además, al requerir herramientas que no son
-independientes del sistema operativo generan muchas complicaciones al momento
+independientes del sistema operativo, generan muchas complicaciones al momento
 de configurar el entorno de desarrollo o de puesta en producción del sistema.
 Como si esto no fuera suficiente, el desarrollador debe aprender una nueva
-tecnología, proceso que lleva tiempo y esfuerzo del que a veces no dispone.\\
+tecnología, proceso que lleva tiempo y esfuerzo del que a veces no dispone.

@@ -1,5 +1,126 @@
-\section{Solución}
+\section{Solución Propuesta}
 
-Propuesta
-Lenguaje Scala
-Plugins a componentes
+De analizar el apartado anterior se puede percibir que sería de amplio
+interés para los desarrolladores contar con una herramienta que corra sobre
+la \jvm y que permita manejar las \dependencies de la \viewtier.\\
+Este trabajo propone la generación de una solución a este problema desarrollada
+en \scala y usando \sbt para manejar las \dependencies en el mismo.\\
+
+\subsection{Características deseadas}
+
+Se tomarán como requerimientos una serie de características que a los efectos
+parecen deseables en una herramienta que intenta posicionarse como el
+estándar para manejo de \dependencies de la \viewtier en lenguajes que corren
+sobre la plataforma.\
+En primer lugar, deberá correr enteramente sobre la \jvm, evitando depender de
+la instalación de software adicional en el equipo y haciendolo independiente
+del sistema operativo, por lo cual, es necesario que se encuentre desarrollada
+en un lenguaje que compile a \bytecode \java.
+Adicionalmente deberá poder ser utilizada desde cualquier otro lenguaje de
+la \jvm de forma natural, es decir, que en caso de características incompatibles
+de los lenguajes, debería proveer una capa de abstracción de forma tal que
+el uso sea transparente y completo. Incluso es deseable que pueda ser
+ejecutada en forma de programa independiente desde la linea de comandos.\\
+La herramienta deberá ser capaz de descargar y acomodar los paquetes que el
+usuario determine como \dependencies en un archivo de configuración. Como se ha
+mencionado en la sección \ref{susubbsec:intro:jvm_dev:view_managed}, distintas
+herramientas utilizan distintos tipos de archivos de configuración. En lugar de
+forzar un formato especifico para el mismo, el \depmgr desarrollado deberá
+brindar al usuario la posibilidad de usar un formato para el mismo que se
+adecue a sus necesidades\footnote{
+	Por ejemplo, los usuarios de \emph{apache Maven} podrían optar por un archivo
+	de configuración en \xml similar al que acostumbran y conocen, mientras
+	que los usuarios de \sbt podrían elegir un archivo de configuración cuya
+	sintaxis asemeje los usados en esa herramienta. Debería ser lo bastante flexible
+	para permitir la generación de formatos de archivo de configuración por los
+	mismos usuarios de la herramienta de forma sencilla.
+}.\\
+Al existir soluciones como \emph{Bower} o \emph{Component}\footnote{
+	Estas soluciones no cumplen todos los requerimientos deseados, pero si son
+	utilizadas con éxito en proyectos de desarrollo.
+}, la herramienta debería complementarlas, permitiendo por ejemplo
+utilizar sus archivos de configuración y sus repositorios.\\
+Finalmente, sería ideal contar con un repositorio propio, en donde desarrolladores
+puedan subir sus paquetes, o al menos registrar los mismos, permitiendo así
+consultar la existencia de dependencias. Además, los usuarios podrían querer
+generar sus propios repositorios y hacer que la herramienta consulte en
+ellos\footnote{
+	Muchas empresas de software suelen tener sus propios repositorios para
+	garantizar disponibilidad de sus requerimientos o porque contienen código
+	propietario usado internamente.
+}. Algunos de estos repositorios podrían ser privados, y por tanto, se requeriría
+acceso mediante un usuario y contraseña que la herramienta debe enviar de forma
+correcta y segura.\\
+Finalmente, podemos destacar el hecho de que, actualmente, muchas \dependencies
+de la \viewtier consisten en múltiples archivos. La mayoría de los \depmgrs actuales
+se basan en archivos, haciendo que se requiera una declaración en el archivo de
+configuración por cada archivo de la dependencia, algo que no solo es poco práctico,
+sino propenso a errores ya que el olvido de una declaración invalida completamente
+la dependencia.\\
+Finalmente, al existir numerosos \frameworks para distintos lenguajes de la \jvm
+que apuntan al desarrollo de aplicaciones web, sería deseable la integración con los
+mismos\footnote{
+	Por ejemplo, múltiples \frameworks utilizan sistemas de templates para generar el
+	código \html que finalmente será utilizado. Sería ideal poder brindar algún
+	componente que integre los elementos descargados a los templates del usuario
+	de forma automática.
+}.\\
+En forma de resumen y para mayor claridad, se enumeran a continuación todas las
+características mencionadas:
+\begin{itemize}
+	\item Hecho enteramente sobre la \jvm
+	\item Posibilidad de ser usado desde cualquier lenguaje de la \jvm
+	\item Archivos de configuración personalizados, con varios formatos por defecto
+	\item Múltiples repositorios
+	\item Seguridad mediante autenticación en los repositorios
+	\item Integración con estándares existentes de \depmgrs
+	\item Integración con tecnologías web existentes en la \jvm
+\end{itemize}
+Otros requerimientos podrían surgir a futuro, pero no son tenidos en cuenta al
+momento de desarrollar esta solución.
+
+\subsection{Elección de tecnologías a utilizar}
+
+Se ha determinado que la tecnología a usar será \scala. La elección se basa en la
+facilidad que presenta este lenguaje para generar código compatible con otros de la
+\jvm y la gran cantidad de características que presenta, las cuales permiten generar
+gran funcionalidad en pocas lineas de código. Además, \scala soporta características
+de análisis sintáctico (\emph{parsing}) sencillas de usar desde el lenguaje, que
+resultan muy útiles cuando se requiere leer archivos de configuración. \sbt permite
+automatizar las tareas de manejo de dependencias de forma rápida y sencilla, y es el
+\depmgr de facto en \scala.\\
+En algunos casos, tales como en el desarrollo en herramientas de integración con
+tecnologías existentes, es posible que sea necesario el uso de otros lenguajes,
+como \java, \clojure o \groovy.
+
+\subsection{Alcance del presente trabajo}
+
+El presente trabajo no pretende ser la solución completa a los requerimientos
+planteados, los cuales son muy amplios y llevarían demasiado tiempo para abordar
+por una sola persona. En cambio se enfocará en las características más importantes,
+dejando asentadas las bases para el desarrollo de las partes no concluidas.
+Así el enfoque será puesto en la estructura del sistema, orientada siempre a
+la extensibilidad.\\
+Se presenta como objetivo el desarrollo de al menos las 
+siguientes características de forma completamente funcionales:
+\begin{itemize}
+	\item Desarrollo del núcleo del sistema
+	\item Descargar dependencias desde la web vía HTTP
+	\item Descargar desde \gls{github} mediante \git
+	\item Descargar desde un repositorio \svn
+	\item Lectura de archivos de configuración en \xml estilo Maven
+	\item Lectura de archivos de configuración en \xml estilo Ivy
+	\item Lectura de archivos de configuración en estilo \sbt
+	\item Agregado de múltiples repositorios
+	\item Usar la herramienta desde la linea de comandos
+	\item Usar la herramienta desde \scala
+	\item Usar la herramienta desde \java
+	\item Integración de la herramienta con Maven
+	\item Integración de la herramienta con \sbt
+	\item Integración de la herramienta con Play! Framework
+\end{itemize}
+Si bien quedarán pendientes muchas tareas para realizar, estas serán abordadas
+en futuros trabajos. Además, la herramienta será liberada como software libre con
+licencia \emph{Apache versión 2}. Esto permitirá que la comunidad de desarrolladores
+expanda la herramienta para funcionar con todos los lenguajes de la \jvm, en muchos
+más \frameworks, y que se integre con una mayor cantidad de procesos.
