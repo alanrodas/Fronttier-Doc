@@ -83,3 +83,14 @@
 \newcommand{\period}{%
 	\phantomsection{}.\xspace%
 }
+
+\newcommand{\ddashcmd}[1]{%
+	\emph{{-}-#1}
+}
+
+\newcommand{\dashcmd}[1]{%
+	\emph{-#1}
+}
+
+\DeclareFloatingEnvironment[fileext=frm,placement={ht},name=Estructura de Carpetas]{folders}
+\captionsetup[folders]{labelfont=bf}
