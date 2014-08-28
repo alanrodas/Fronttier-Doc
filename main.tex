@@ -1,10 +1,10 @@
 % !TeX encoding = UTF-8
 % !TeX spellcheck = es_AR
-% arara: xelatex
+% arara: xelatex: {shell: yes}
 % arara: biber
 % arara: makeglossaries
-% arara: xelatex
-% arara: xelatex
+% arara: xelatex: {shell: yes}
+% arara: xelatex: {shell: yes}
 
 \input{preamble}
 
@@ -26,4 +26,10 @@
 	\blankpage
 	\printdefinitions
 	\printbibliography[heading=bibintoc]
+	\blankpage
+	\begin{appendices}
+	\loadappendix{jvm}
+	\loadappendix{history}
+	\loadappendix{depmanagement}
+	\end{appendices}
 \end{document}

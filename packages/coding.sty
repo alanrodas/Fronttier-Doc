@@ -1,8 +1,8 @@
 \NeedsTeXFormat{LaTeX2e}[1994/06/01]
-\ProvidesPackage{coding}[2014/06/05 Coding]
+\ProvidesPackage{packages/coding}[2014/06/05 Coding]
 
 \RequirePackage{listings}
-\RequirePackage[usenames, dvipsnames]{color}
+%\RequirePackage[usenames, dvipsnames]{color}
 \RequirePackage{keycommand}
 
 \DeclareOption{uselinenumbers}{
@@ -22,7 +22,8 @@
 
 \ProcessOptions\relax
 
-\renewcommand{\lstlistingname}{Código}
+\begin{comment}
+
 
 \lstset{%
 	basicstyle=\footnotesize,       % the size of the fonts that are used for the code
@@ -66,9 +67,9 @@
 }
 
 
-\newkeycommand\setcodelanguage[label=,caption=][1]{%
+\DeclareDocumentCommand \setcodelanguage{o o m}{%
 	\lstset{%
-		language=#1,
+		language=#3,
 		commentstyle=\color{OliveGreen}\ttfamily,
 		stringstyle=\color{BurntOrange}\ttfamily,
 		ndkeywordstyle=\color{Cerulean}\bfseries,
@@ -76,31 +77,31 @@
 		keywordstyle=\color{Blue}\bfseries,
 		float=h
 	}
-	\ifthenelse { \equal {\commandkey{caption}} {} }{}%
+	\ifthenelse { \equal {#1} {} }{}%
 	{\lstset{caption=\commandkey{caption}}}% If not empty
-	\ifthenelse { \equal {\commandkey{label}} {} }{}%
+	\ifthenelse { \equal {#2} {} }{}%
 	{\lstset{label=\commandkey{label}}}% If not empty
 }
 
 
-\lstnewenvironment{javacode}[1][]
-{\setcodelanguage[#1]{Java}}
+\lstnewenvironment{javacode}[2][][]
+{\setcodelanguage[#1][#2]{Java}}
 {}
 
-\lstnewenvironment{jscode}[1][]
-{\setcodelanguage[#1]{JavaScript}}
+\lstnewenvironment{jscode}[2][][]
+{\setcodelanguage[#1][#2]{JavaScript}}
 {}
 
-\lstnewenvironment{pomcode}[1][]
-{\setcodelanguage[#1]{POM}}
+\lstnewenvironment{pomcode}[2][][]
+{\setcodelanguage[#1][#2]{POM}}
 {}
 
-\lstnewenvironment{ivycode}[1][]
-{\setcodelanguage[#1]{IVY}}
+\lstnewenvironment{ivycode}[2][][]
+{\setcodelanguage[#1][#2]{IVY}}
 {}
 
-\lstnewenvironment{htmlcode}[1][]
-{\setcodelanguage[#1]{HTML}}
+\lstnewenvironment{htmlcode}[2][][]
+{\setcodelanguage[#1][#2]{HTML}}
 {}
 
 \lstdefinelanguage{Console}{
@@ -109,28 +110,28 @@
 	morestring=[b]',
 	morestring=[b]"
 }
+\end{comment}
+%\newkeycommand\setconsole[label=,caption=]{%
+%	\lstset{%
+%		language=Console,
+%		basicstyle=\color{White}\ttfamily,
+%		backgroundcolor=\color{Gray},
+%		commentstyle=\color{OliveGreen}\ttfamily,
+%		stringstyle=\color{BurntOrange}\ttfamily,
+%		ndkeywordstyle=\color{Cerulean}\bfseries,
+%		identifierstyle=\color{White},
+%		keywordstyle=\color{Blue}\bfseries,
+%		rulecolor=\color{Black},
+%		float=h
+%	}
+%	\ifthenelse { \equal {\commandkey{caption}} {} }{}%
+%	{\lstset{caption=\commandkey{caption}}}% If not empty
+%	\ifthenelse { \equal {\commandkey{label}} {} }{}%
+%	{\lstset{label=\commandkey{label}}}% If not empty
+%}
 
-\newkeycommand\setconsole[label=,caption=]{%
-	\lstset{%
-		language=Console,
-		basicstyle=\color{White}\ttfamily,
-		backgroundcolor=\color{Gray},
-		commentstyle=\color{OliveGreen}\ttfamily,
-		stringstyle=\color{BurntOrange}\ttfamily,
-		ndkeywordstyle=\color{Cerulean}\bfseries,
-		identifierstyle=\color{White},
-		keywordstyle=\color{Blue}\bfseries,
-		rulecolor=\color{Black},
-		float=h
-	}
-	\ifthenelse { \equal {\commandkey{caption}} {} }{}%
-	{\lstset{caption=\commandkey{caption}}}% If not empty
-	\ifthenelse { \equal {\commandkey{label}} {} }{}%
-	{\lstset{label=\commandkey{label}}}% If not empty
-}
-
-\lstnewenvironment{consolecode}[1][]
-{\setconsole[#1]}
-{\\}
+%\lstnewenvironment{consolecode}[1][]
+%{\setconsole[#1]}
+%{\\}
 
 \endinput

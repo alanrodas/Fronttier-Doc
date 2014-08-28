@@ -1,0 +1,144 @@
+\section{Historia de los sistemas empresariales}
+\label{appendix:history}
+
+Este apartado dará una breve muestra de las transformaciones que ha
+sufrido la industria de desarrollo de sistemas en los últimos tiempos. Se verá 
+también como estas transformaciones han llevado a que los sistemas web sean hoy 
+en día una de las opciones más utilizadas en el ámbito empresarial.\\
+
+\subsection{Estado anterior a los sistemas web}
+\label{subsec:history:about_web:previous_pc}
+
+En las décadas de 1960 y 1970, comienza en el mundo un proceso lento pero
+incremental de computarización de la información. Las computadoras dejan de ser
+\quoted{juguetes} científicos para pasar a ser complejas maquinarias con
+verdadera utilidad practica en distintas industrias.\\
+Durante esos años varias empresas comienzan a \emph{informatizarse}. Bancos,
+petroleras y otros compran grandes computadoras capaces de almacenar toda su
+información o procesar complejos cálculos matemáticos en poco tiempo.\\
+En este contexto, múltiples empresas como \emph{IBM}, \emph{RCA}, y 
+\emph{General Electric}, comenzaron a fabricar gigantescas computadoras de
+precio cada vez más económico. Estas maquinas evolucionarían poco a poco hasta
+convertirse en lo que hoy se conocen como \mainframes.\\
+En este sentido, \citefullauthor{Stephens:2008:BOOK} en su libro
+\citetitle{Stephens:2008:BOOK} \citeyearsq{Stephens:2008:BOOK} describe a un
+\mainframe como una computadora muy grande, con una base de datos de alto
+rendimiento y a la cual se accede desde una terminal remota. Básicamente, una
+maquina \quoted{tonta}, sin mucha otra finalidad más que la de conectarse al
+servidor central para realizar peticiones de datos y mostrarle los resultados
+al usuario.\\
+\citeauthor{Stephens:2008:BOOK} también destaca los beneficios de los
+\mainframes por sobre una computadora personal a nivel empresarial. Las
+características que menciona son:
+\begin{description}[
+	font=$\bullet$\enskip,
+	leftmargin={\parindent*4},
+	labelindent=\parindent]
+	\setlength{\itemsep}{1pt}
+	\setlength{\parskip}{0pt}
+	\setlength{\parsep}{0pt}
+	\item[Integridad de datos:] Los datos \textsc{deben} ser correctos.
+	\item[Rendimiento:] Se debe procesar gran cantidad de datos.
+	\item[Respuesta:] El procesamiento debe ser inmediato.
+	\item[Recuperación ante desastres:] En caso de un fallo, se debe volver a
+										estar operativo inmediatamente.
+	\item[Usabilidad:] Debe hacer lo que se requiere, cuando se requiere.
+	\item[Confiabilidad:] No debe fallar y siempre debe estar disponible.
+	\item[Auditoria:] Ser capaz de saber quien realizó qué acción en el equipo.
+	\item[Seguridad:] Solo aquellos que pueden realizar una acción pueden
+					  hacerlo.
+\end{description}
+Estas características son todavía buscadas en los grandes \mainframes de la
+actualidad, y resultan fundamentales en emprendimientos críticos.\\
+\citefullauthor{Elliot:2008:BOOK} ha descripto que las tendencias de la
+tecnología utilizada, no obedecen solamente a motivaciones económicas y
+operativas, sino a un complejo entramado de relaciones entre empresas que 
+comparten una visión utópica sobre la tecnología en cuestión
+\citesq[pag 3]{Elliot:2008:BOOK}. Así, las empresas comercializadoras de
+\mainframes enarbolando como bandera principal los beneficios planteados por
+\citeauthor{Stephens:2008:BOOK}, lograron generar una visión utópica en las
+empresas usuarias para posicionar la tecnología dominante durante largos años.
+Es por esto que los \mainframes siguen teniendo hoy en día un lugar en el
+mercado.\\
+ 
+\subsection{Aparición de las computadoras personales}
+\label{subsec:history:about_web:pc_era}
+
+A partir de fines de los 70`s y comienzos de los 80`s, las \acp{pc}
+comienzan a ser cada vez más accesibles \citesq[cap 4]{Allan:2001:BOOK}.
+La liberación de \emph{ARPANET} por parte de \acs{darpa} en 1983 da nacimiento
+a \internet. Estos dos cambios suponen un quiebre en las tecnologías de uso
+empresarial.\\
+El \ac{pc}, sumado a la conectividad y nuevas tecnologías tanto en sistemas
+como en lenguajes de programación llevaron a que los \mainframes comenzaran a
+perder terreno.\\
+La posibilidad de ejecutar programas en cada \ac{pc} dio lugar a nuevas
+arquitecturas \clientserver. Ahora los usuarios corrían los programas en su 
+propio equipo, permitiendo aumentar la velocidad de respuesta. El programa se
+conectaba a \internet y sincronizaba información con un servidor central solo 
+cuando fuera necesario.\\
+Esta arquitectura permitiría una más rápida evolución del software por sobre la 
+opción de tener el sistema en un \mainframe, como explican
+\citefullauthor{Duncan:1996:ARTICLE} en su artículo 
+\citetitle{Duncan:1996:ARTICLE}\period Como contrapartida estos cambios suponen
+un alto costo de mantenimiento, y en caso de poseer equipos con distintos
+sistemas operativos, un gasto extra en el desarrollo. Independientemente de los 
+costos, el factor más incidente en el cambio es la necesidad de mantener el 
+sistema al día con las necesidades de la empresa, señalan 
+\citeauthor{Duncan:1996:ARTICLE}.
+
+\subsection{Navegadores y primeros sistemas web}
+\label{subsec:history:about_web:web}
+
+Tras la aparición de los navegadores web (como \emph{Netscape} e
+\emph{Internet Explorer}) a comienzos de 1990 se comenzaron a desarrollar los 
+primeros sistemas web.\\
+Los mismos consistían básicamente en documentos dinámicos, generados con 
+información tomada de una base de datos. Gran influencia tuvieron en este tipo 
+de soluciones la creación de lenguajes de programación y tecnologías pensadas 
+para generar documentos \html dinámicamente, como \emph{PHP}, \emph{ASP} y los 
+\emph{Servlets} de \java \citesq[pag 2]{Hunter:2001:BOOK}. La posibilidad de 
+generar \emph{aplicaciones} que corran en el navegador solucionó las
+problemáticas asociadas a el mantenimiento de los sistemas y al desarrollo para 
+múltiples sistemas operativos. Sin embargo, la naturaleza de \html limitaba la 
+capacidad de las aplicaciones a sencillos formularios, botones y enlaces.\\
+Estas limitaciones hicieron que no fuera sino hasta con la aparición de las 
+primeras tecnologías complementarias a \html que las aplicaciones web 
+comenzarían a cobrar relevancia, dando lugar a las \ac{ria}.
+
+\subsection{Rich Internet Applications}
+\label{subsec:history:about_web:rias}
+
+Las \glspl{ria} surgen para compensar aquellas faltantes que presentaban las 
+aplicaciones web frente a las tradicionales de \clientserver.\\
+En un primer lugar software en forma de complementos (\plugins) que permitían
+correr algún lenguaje especial en los navegadores fueron creados.\\
+Las \ria comenzaron a copar los mercados empresariales, ya que permitían ahorrar
+en mantenimiento y desarrollo a la vez que brindaban la usabilidad que se 
+demandaba de un sistema empresarial.\\
+Cada vez más soluciones comenzaron a surgir y los \plugins privativos 
+comenzaron a ser un problema para los desarrolladores. Esto llevaría a que se 
+desarrollaran con fuerza \css y \js, tecnologías libres que permitían crear 
+\rias, disponibles en cualquier navegador sin necesidad de instalar software 
+adicional.\\
+Así, en los últimos años, y gracias también al auge de los smartphones y 
+tablets, incapaces de correr los anteriormente mencionados \plugins, el llamado 
+\htmlv pasaría a transformarse en el estándar para el desarrollo de \rias
+\citesq{David:2013:BOOK}.\\
+
+\subsection{Conclusiones}
+\label{subsec:history:conclusions}
+
+Los sistemas web actuales permiten la robustez esperada de los primeros sistemas
+\mainframe, pero sin los altos costos de adquisición y mantenimiento de los 
+mismos. A su vez, las \rias ofrecen la capacidad de tener aplicaciones con un 
+alto grado de usabilidad. Además, la gran cantidad de \frameworks capaces de 
+generar rápidamente sistemas web con una interfaz completamente 
+realizada en \htmlv que han aparecido en los últimos años, permiten reducir los 
+tiempos de desarrollo. Junto con las plataformas como servicio, como 
+\emph{Heroku} o \emph{Rackspace} reducen significativamente la puesta en 
+producción de los sistemas.\\
+Todas estas características han llevado a que las aplicaciones web con una 
+\viewtier hecha en \htmlv se hayan transformado en la nueva visión utopica 
+señalada por \citeauthor{Elliot:2008:BOOK}.Así, este tipo de desarrollos 
+seguirán siendo la norma durante los años venideros.

@@ -36,6 +36,11 @@
 	\jump[2]
 }
 
+\newcommand{\loadappendix}[1]{%
+	\input{appendices/#1}
+	\clearpage%
+}
+
 \newcommand{\loadpage}[1]{%
 	\input{pages/#1}
 	\jump[2]
@@ -83,6 +88,11 @@
 \newcommand{\period}{%
 	\phantomsection{}.\xspace%
 }
+
+\DeclareDocumentCommand{\cmd}{m}{%
+	\\\framebox[\textwidth][l]{\mintinline{bash}{$ #1}}\\%$
+}
+
 
 \newcommand{\ddashcmd}[1]{%
 	\emph{{-}-#1}
