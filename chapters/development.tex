@@ -1,9 +1,148 @@
+\setcounter{figure}{0}
+\renewcommand{\figurename}{UML}
+
 \section{Desarrollo}
+
+El sistema se desarrolló realizando módulos independientes entre sí, y finalmente conectando todo en el sistema \fronttier.\\
 
 \subsection{El modelo general}
 
-\subsection{Modelo del parser de linea de comando}
+\subsection{Modelo del parser de \cli}
+
+El módulo \scaliapp es una biblioteca que funciona de forma independiente para crear aplicaciones de \cli.\\
+A través de un simple DSL y mediante extender la clase \scaliapp se pueden crear aplicaciones que toman comando de forma rápida. Cada comando tiene una función asociada la cual se activa al recibir la aplicación dicho comando. Además, se pueden definir de forma rápida argumentos, en su modo largo y corto, \flags y argumentos que reciben parámetros.\\
+El código principal se encuentra en el paquete \jcode{com.alanrodas.scaliapp}, el cual, al importarlo, provee todas las clases y funciones necesarias para utilizar el DSL.\\
+El UML en \ref{uml:scaliapp:general} da una vista simplificada de sCaLIapp. \scaliapp no es más que una clase que provee las mismas funcionalidades que \jcode{App} en \scala, pero evaluando todos los comandos declarados y delegando en \jcode{CommandManager} su procesamiento.\\
+Para cada \jcode{Command} existe un \jcode{callback}, una función que dado una lista de \jcode{ValuedArgument} (los valores pasados a la aplicación para ese comando) devuelven un entero. El entero devuelto representa la salida del programa (cero para programas que terminaron correctamente, o el número de error correspondiente en caso contrario). A su vez, se espera que la ejecución de dicho \jcode{callback} genere algún efecto, por ejemplo, mostrando un mensaje en la terminal del usuario, o ejecutando una porción de código determinado.\\
+
+\begin{figure}[htb]
+\tiny
+\centering{
+\begin{tikzpicture}
+	\begin{object}[text width=5cm]{CLIApp}{0,8}
+		\operation{main(args : Array[String]) : void}
+	\end{object}
+	
+	\begin{object}[text width=7cm]{CommandManager}{9,8}
+		\operation{addCommand(command : Command) : Command}
+		\operation{execute(args : Array[String]) : Seq[ValuedArgument[\_]]}
+	\end{object}
+	
+	\aggregation{CLIApp}{commands}{1..1}{CommandManager}
+	
+	\begin{abstractclass}[text width=5cm]{Command}{9,5}
+		\attribute{name : String}
+		\attribute{description : String}
+		\attribute{dashedArguments : Map[String,Parameter]}
+		\operation{isRoot() : Boolean}
+		\operation{hasRequiredArguments() : Boolean}
+		\operation{hasDashedArgNamed() : Boolean}
+		\operation{dashedArgument() : Boolean}
+	\end{abstractclass}
+	
+	\aggregation{CommandManager}{manager}{1..*}{Command}
+	
+	\begin{class}[text width=5cm]{ArgumentCommand}{4,0}
+		\inherit{Command}
+		\attribute{callback : List[UnamedArgument] => Int}
+	\end{class}
+	
+	\begin{class}[text width=6cm]{MultiArgumentCommand}{10,0}
+		\inherit{Command}
+		\attribute{callback : Map[String, NamedArgument] => Int}
+	\end{class}
+	
+	\begin{abstractclass}[text width=5cm]{ValuedArgument[RType]}{2,4}
+		\attribute{value : RType}
+	\end{abstractclass}
+		
+	\begin{class}[text width=4cm]{UnnamedArgument[RType]}{4.5,2}
+		\inherit{ValuedArgument[RType]}
+	\end{class}
+	
+	\begin{class}[text width=4cm]{NamedArgument[RType]}{0,2}
+		\inherit{ValuedArgument[RType]}
+	\end{class}
+	
+	\unidirectionalAssociation{CommandManager}{}{}{ValuedArgument[RType]}
+\end{tikzpicture}
+}
+\normalsize
+\caption{Diagrama general de \scaliapp.}
+\label{uml:scaliapp:general}
+\end{figure}
+
+\scaliapp es una biblioteca completamente independiente del proyecto \fronttier, y por tanto, tiene sus propios objetivos, trabajos a futuro, etc.\\
+La idea de \scaliapp es la de poder construir aplicaciones que corran en la máquina del cliente de forma muy rápida y sencilla. No solo eso, sino que la idea general es que la herramienta sea lo suficientemente flexible como para soportar cualquier aplicación que corra desde la línea de comandos, incluyendo aplicaciones interactivas. Es por esto que el trabajo realizado en el presente en cuanto a \scaliapp no se da por concluido pues solamente se limitó al desarrollo de la parte que fuera imprescindible para \fronttier.
 
 \subsection{Modelo de \conffiles}
 
+Los \conffile de \fronttier se parsean en base a una serie de objetos registrados en el sistema. Cada uno de estos objetos extiende el trait \jcode{ConfParser} y reimplementa el método \jcode{parse}, así como los valores \jcode{id} y \jcode{name}.\\
+
+
 \subsection{Modelo de sistema de descargas}
+
+El modelo del sistema de descargas cuenta con dos partes. La parte de descargas mediante \http y que se encuentra dentro del modulo de \fronttier, y la parte de descargas desde sistemas de control de versiones, el cual hace uso del modulo \jcode{ScalaVCS}. Hablaremos primero de este último.\\
+\scalavcs es una biblioteca que intenta generar una capa de abstracción sobre el funcionamiento y de los distintos sistemas de control de versiones (VCSs), como \git, \svn, \emph{CVS}, \emph{Bazaar} y \emph{Mercurial}.\\
+Este modulo parte de la base de que existen una serie de acciones que el usuario puede desear realizar sobre un VCS, independientemente de cual sea este. Tales operaciones incluyen añadir un archivo al sistema de control, remover un archivo, listar los archivos agregados, salvar la versión actual, volver a una versión anterior, ver las versiones salvadas o comparar dos versiones salvadas, entre otras.\\
+A su vez, \scalavcs distingue dos tipos de sistemas de control de versiones, aquellos que funcionan con un solo servidor (\emph{CVS}, \svn) y los distribuidos (\git, \emph{Mercurial}, \emph{Bazaar}). Los sistemas distribuidos tienen acciones adicionales, como sincronizar de forma distribuida, o bajar una versión especifica.\\
+El diagrama UML \ref{uml:scalavcs:general} muestra la estructura básica de los repositorios de \scalavcs. Existe a su vez un objeto para cada tipo de sistema de control de versiones, que actúa a modo de constructor. La sintaxis de \scala junto con este patrón permite obtener un DSL muy claro y conciso.\\
+
+\begin{figure}[htb]
+\tiny
+\centering{
+	\begin{tikzpicture}
+	\begin{abstractclass}[text width=5cm]{VCSRepo}{6,8}
+		\operation{add(resource : String) : Boolean}
+		\operation{rm(resource : String) : Boolean}
+		\operation{mv(resource : String) : Boolean}
+		\operation{lock(resource : String) : Boolean}
+		\operation{status() : VCSStatus}
+		\operation{diff() : VCSDiff}
+		\operation{branch(name : String) : Boolean}
+		\operation{checkout(version : String) : Boolean}
+		\operation{export(path : String) : Boolean}
+		\operation{commit(msg : String) : Boolean}
+	\end{abstractclass}
+	
+	\begin{abstractclass}[text width=4cm]{SimpleVCSRepo}{2,3}
+		\inherit{VCSRepo}
+	\end{abstractclass}
+
+		\begin{class}[text width=2cm]{SVNRepo}{0,0}
+		\inherit{SimpleVCSRepo}
+		\end{class}
+		
+		\begin{class}[text width=2cm]{CVSRepo}{4,0}
+		\inherit{SimpleVCSRepo}
+		\end{class}
+		
+	\begin{abstractclass}[text width=4cm]{DistributedVCSRepo}{10,3}
+		\inherit{VCSRepo}
+		\operation{pull(repo : String) : Boolean}
+		\operation{push(repo : String) : Boolean}
+		\operation{fetch(repo : String) : Boolean}
+	\end{abstractclass}
+
+		\begin{class}[text width=2cm]{GitRepo}{7,0}
+		\inherit{DistributedVCSRepo}
+		\end{class}
+		
+		\begin{class}[text width=2cm]{HgRepo}{10,0}
+		\inherit{DistributedVCSRepo}
+		\end{class}
+		
+		\begin{class}[text width=2cm]{BzRepo}{13,0}
+		\inherit{DistributedVCSRepo}
+		\end{class}
+			
+	\end{tikzpicture}
+}
+\normalsize
+\caption{Diagrama general de los repositorios de \scalavcs.}
+\label{uml:scalavcs:general}
+\end{figure}
+
+\scalavcs utiliza parámetros implícitos en todos los objetos que actúan de constructores. Estos parámetros pueden ser importados desde el paquete \jcode{com.alanrodas.scalavcs.connectors} y sus subpaquetes, pasándose automaticamente a los objetos constructores. Tienen por objetivo proveer el conector que se utilizará como cliente para un determinado sistema de VCS. Así, es posible usar un conector que utilice la aplicación \git mediante llamadas a la misma a través del sistema operativo, o utilizar una implementación realizada en completamente en \java, como \emph{SVNKit}.\\
+\fronttier utiliza entonces a \scalavcs para descargar todo lo referente a sistemas de control de versiones. Por otro lado, utiliza la biblioteca \emph{RaptureIO} para descargar contenidos desde \internet.\\
+\emph{RaptureIO} provee una base de abstracción sobre el proceso de entrada y salida en \scala. De esta forma, se puede descargar un archivo de \internet y guardarlos en el disco de forma transparente, como si fuesen todos archivos de la máquina local, y sin preocuparse por particularidades del sistema operativo.

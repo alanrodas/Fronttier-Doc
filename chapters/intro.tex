@@ -1,7 +1,10 @@
 \section{Introducción}
 \label{sec:intro}
 
-En la presente sección se explicará cual es el contexto actual del desarrollo de software empresarial. Se analizará también como se organiza un sistema de este tipo y la técnica de reutilización de código mediante el uso de \dependencies.\\
+En la presente sección se explicará cual es el contexto actual del desarrollo 
+de software empresarial. Se analizará también como se organiza un sistema de 
+este tipo y la técnica de reutilización de código mediante el uso de 
+\dependencies.\\
 
 
 \subsection{Desarrollo de sistemas web en la \jvm}
@@ -56,10 +59,11 @@ muestra la arquitectura básica de una aplicación web según este esquema.\\
 	\label{fig:intro:jvm:web_arch}
 \end{figure}
  
- El presente trabajo se enfocará en la \viewtier, aunque utilizará conceptos desarrollados para la \logictier para su desarrollo.
+El presente trabajo se enfocará en la \viewtier, aunque utilizará conceptos 
+desarrollados para la \logictier para su desarrollo.
  
 \subsection{Reutilización de código mediante \dependencies}
-\label{ubsec:intro:jvm_dev:dependencies}
+\label{subsec:intro:jvm_dev:dependencies}
 
 Existen numerosos \frameworks, \toolkits, bibliotecas y porciones de código 
 que los desarrolladores pueden utilizar en el código de su proyecto, de forma 
@@ -79,7 +83,8 @@ o símil que declarará el código de terceros requerido. Un programa externo
 evaluara el \conffile al momento de la compilación y se encargará de descargar 
 e \emph{instalar} las \dependencies declaradas. Estos programas son
 conocidos como \depmgrs.\\
-La figura siguiente muestra de forma gráfica los tipos de \dependencies para una mejor comprensión de lo previamente expresado.
+La figura siguiente muestra de forma gráfica los tipos de \dependencies para 
+una mejor comprensión de lo previamente expresado.
 \jump[2]
 
 \begin{forest}

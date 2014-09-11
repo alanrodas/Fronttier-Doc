@@ -90,9 +90,17 @@
 }
 
 \DeclareDocumentCommand{\cmd}{m}{%
-	\\\framebox[\textwidth][l]{\mintinline{bash}{$ #1}}\\%$
+	\\
+	\raisebox{0cm}[8mm][8mm]{%
+		\framebox[\textwidth][l]%
+		{\mintinline{bash}{$ #1}}%$
+	}%
+	\\%$
 }
 
+\DeclareDocumentCommand{\jcode}{m}{%
+	\emph{\mintinline{java}{#1}}%
+}
 
 \newcommand{\ddashcmd}[1]{%
 	\emph{{-}-#1}
