@@ -102,12 +102,16 @@
 	\emph{\mintinline{java}{#1}}%
 }
 
+\newcommand{\code}[1]{%
+	\textbf{\emph{#1}}\xspace
+}
+
 \newcommand{\ddashcmd}[1]{%
-	\emph{{-}-#1}
+	\code{{-}-#1}
 }
 
 \newcommand{\dashcmd}[1]{%
-	\emph{-#1}
+	\code{-#1}
 }
 
 \DeclareFloatingEnvironment[fileext=frm,placement={ht},name=Estructura de Carpetas]{folders}

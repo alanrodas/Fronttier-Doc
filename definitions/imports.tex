@@ -18,15 +18,16 @@
 \usepackage{xgalley}
 
 
-\usepackage[acronym, toc, nonumberlist]{glossaries}
-\glossarystyle{altlist}
+%\usepackage[acronym, toc, nonumberlist]{glossaries}
+%\glossarystyle{altlist}
 \usepackage[xspace= {true}]{acro}
 
 \usepackage{hyperref}
 \usepackage{keycommand}
 
-\usepackage[style=authoryear, backend=biber, backref=true]{biblatex}
-\renewcommand\nameyeardelim{,}
+\usepackage[style=numeric, citestyle=authoryear,
+	backend=biber, backref=true]{biblatex}
+\renewcommand\nameyeardelim{, }
 
 \usepackage{datetime}
 \newdateformat{monthyear}{\monthname[\THEMONTH] \THEYEAR}

@@ -1,8 +1,8 @@
-\section{Manejo de distintos tipos de \dependencies}
+\section{Estado del arte: Manejo de distintos tipos de \dependencies}
 \label{appendix:depmgmnt}
 
 En esta sección se explicará como se manejan las \dependencies en las distintas
-capas de software. Se mostrará como la solución propuesta en este documento se adapta a técnicas ya probadas.\\
+capas de software. Se mostrará como la solución propuesta en el presente documento se adapta a técnicas ya probadas.\\
 
 \subsection{Dependencias manejadas de la \logictier}
 \label{subsec:depmgmnt:jvm_dev:logic_dependencies}
@@ -15,11 +15,12 @@ de la fundación \apache se ha posicionado como el estándar de facto\footnote{
 } \citesq{Sonatype:2008:BOOK}. Otro de los proyectos que se han posicionado en 
 esta área es \apache \ivy, que se concentra solamente en el manejo de 
 \dependencies.\\
-\maven hace uso de un \conffile escrito en \xml, archivo comúnmente denominado 
-POM, ya que el nombre del archivo es pom.xml. El 
-\coderef{code:depmgmnt:jvm:maven_pom} muestra un ejemplo de este tipo de 
+\maven hace uso de un \conffile escrito en \xml, comúnmente denominado 
+POM, ya que su nombre es pom.xml. El 
+\coderef{code:depmgmnt:jvm:maven_pom} muestra un ejemplo de dicho tipo de 
 \conffile. \ivy utiliza también archivos \xml, pero estos son más compactos que 
-los de \maven. El \coderef{code:depmgmnt:jvm:ivy_module} es un ejemplo del mismo.\\
+los de \maven. El \coderef{code:depmgmnt:jvm:ivy_module} es un ejemplo del 
+mismo.\\
 
 \begin{listing}[htb]
 \begin{minted}[frame=lines]{xml}
@@ -62,8 +63,8 @@ Con la aparición de nuevos lenguajes para la \jvm comenzaron a surgir nuevos
 \clojure, y \apache Buildr como propuesta multilenguaje. Cada uno de ellos 
 utiliza un \conffile con distinta sintaxis
 \citesq[pág. 569]{Alexander:2013:BOOK}. El 
-\coderef{code:depmgmnt:jvm:sbt_module_add} muestra un ejemplo de la declaración de 
-una \dependency en el \conffile de \sbt.\\
+\coderef{code:depmgmnt:jvm:sbt_module_add} muestra un ejemplo de la declaración 
+de una \dependency en el \conffile de \sbt.\\
 
 \begin{listing}[htb]
 \begin{minted}[frame=lines]{scala}
@@ -76,43 +77,54 @@ libraryDependencies += "org.springframework.data" %
 
 A pesar de la gran cantidad de formatos de \conffile, todos los \depmgrs
 trabajan bajo el estándar pre-impuesto por \maven. Esto llega a un punto tal 
-que el sitio \gls{mvnrepo} es el centro de referencia al momento de buscar 
+que el sitio \emph{MVNRepo}\footnote{
+	MVNRepo o Maven Repository es un sitio web alojado en 
+	\emph{http://mavenrepository.com} que permite buscar una amplia cantidad de 
+	paquetes \emph{.jar} y \emph{.war}	que podemos importar en nuestro 
+	proyecto, brindando el código necesario para agregarlo al mismo utilizando 
+	distintos \depmgrs.
+} es el centro de referencia al momento de buscar 
 dependencias. Se puede entonces apreciar como todos los \conffiles especifican
 inequívocamente un paquete de código mediante tres campos clave para su 
-búsqueda: el nombre de la compañía, el nombre del modulo y la versión del 
+búsqueda: el nombre de la compañía, el nombre del módulo y la versión del 
 programa.\\
 
-\subsection{Dependencias no manejadas de \viewtier}
+\subsection{Dependencias no manejadas de la \viewtier}
 \label{subsec:depmgmnt:jvm_dev:view_dependencies}
 
 La mayoría de las \dependencies de la \viewtier consisten en archivos 
 principalmente \css y \js (aunque también podrían ser fuentes web u otros 
 recursos), los cuales son descargados manualmente a través de la página del 
-creador del código (No existen repositorios centralizados como en el caso de 
+creador del código (no existen repositorios centralizados como en el caso de 
 las \dependencies de la \logictier). Una vez descargados, el desarrollador debe 
-mover los archivos a alguna carpeta de su proyecto para \emph{instalarlo} (la 
-ubicación exacta depende de la estructura del proyecto y por tanto debe ser 
-recordada por el programador) para encontrarse finalmente disponibles para su 
-uso en el código del usuario.\\
+mover los archivos a una carpeta de su proyecto para \emph{instalarlos} de 
+forma que se encuentren disponibles para su uso en el código (la ubicación 
+exacta depende de la estructura del proyecto y por tanto debe ser recordada por 
+el programador).\\
 Los errores en esta etapa son muy comunes dado la variada cantidad de tipos de
-\dependency, donde cada uno debe ser copiado en una ubicación puntual. Además 
+\dependency, donde cada uno debe ser copiado en una ubicación puntual. Además, 
 una misma \dependency no necesariamente consiste en un único archivo (como 
 sucede en la \logictier), sino en múltiples archivos de distinto formato que 
-deben ser agregados al proyecto de una forma especifica. La falta de un lugar 
-que agrupe estos contenidos y estandarice sus nombres, versiones, formas de 
-instalación, etc. hace que sea muy difícil manejar este tipo de \dependencies.
+deben ser agregados al proyecto de una forma específica. La falta de un lugar 
+que agrupe éstos contenidos y estandarice sus nombres, versiones, formas de 
+instalación, etc. hace que sea muy difícil manejar éste tipo de \dependencies.
 
-\subsection{CDN}
+\subsection{Redes de distribución de contenido}
 \label{subsec:depmgmnt:jvm_dev:cdns}
 
-Las \emph{Redes de Distribución de Contenido}, (\cdn) surgen con la idea de agrupar el contenido disponible online en un solo lugar\footnote{
+Las \emph{Redes de Distribución de Contenido}, (\cdn) consisten en una serie de 
+servidores en \internet distribuidos en distintos puntos geográficos. Los 
+usuarios solicitan contenido a éstos servidores y es siempre el más 
+próximo a la ubicación del usuario el que entrega el mismo, disminuyendo los 
+tiempos de carga.\\
+Así, las \cdns permiten agrupar el contenido disponible online en un solo 
+lugar\footnote{
 	Su creación no responde necesariamente a procesos de manejo de dependencias
 	en proyectos de desarrollo de software, sin embargo es uno de los usos
 	posibles de este tipo de redes y ha sido uno de los usos más comunes.
-}.\\
-Así, las \cdn permiten al usuario insertar en el código \html de un proyecto, 
-una clausula que importa automáticamente una dependencia desde el 
-servidor de la \cdn más cercano.\\
+}, permitiendo al usuario insertar en el código \html de su proyecto
+una cláusula que importa automáticamente las dependencias desde el servidor de 
+la \cdn más cercano.\\
 
 \begin{listing}[ht]
 \begin{minted}[frame=lines]{html}
@@ -120,20 +132,20 @@ servidor de la \cdn más cercano.\\
   <head>
     ...
     <!-- JQuery -->
-    <script
-  src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js">
+    <script src="//ajax.googleapis.com/
+        ajax/libs/jquery/1.11.1/jquery.min.js">
     </script>
     <!-- JQuery Mobile -->
-    <link rel="stylesheet"
-  href="//ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.css"/>
-    <script
-  src="//ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.js">
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/
+        jquerymobile/1.4.3/jquery.mobile.min.css"/>
+    <script src="//ajax.googleapis.com/ajax/libs/
+        jquerymobile/1.4.3/jquery.mobile.min.js">
     </script>
     <!-- JQuery UI -->
-    <link rel="stylesheet" 
-  href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/themes/smoothness/jquery-ui.css"/>
-    <script
-  src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/jquery-ui.min.js">
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/
+        jqueryui/1.11.0/themes/smoothness/jquery-ui.css"/>
+    <script src="//ajax.googleapis.com/ajax/libs/
+        jqueryui/1.11.0/jquery-ui.min.js">
     </script>
   </head>
   <body>
@@ -155,43 +167,45 @@ desarrolla ya que los archivos de \dependency pueden ser descargados desde
 servidores más cercanos a la ubicación del usuario, y además ahorran carga de 
 trabajo al servidor de la aplicación.\\
 Como contrapartida, las \cdns suelen tener una gestión centralizada desde 
-alguna entidad proveedora, la cual no necesariamente responde a los pedidos o requerimientos del usuario). Esto hace que sea difícil contar con las ultimas 
+alguna entidad proveedora, la cual no necesariamente responde a los pedidos o requerimientos del usuario. Ésto hace que sea difícil contar con las últimas 
 versiones, o con bibliotecas que los administradores del mismo decidan no 
 soportar. A esto se le agrega el alto costo de mantener una \cdn por cualquier 
 empresa que no posea grandes servidores a lo largo del globo.
 
-\subsection{Dependencias manejadas de \viewtier}
+\subsection{Dependencias manejadas de la \viewtier}
 \label{subsec:depmgmnt:jvm_dev:view_managed}
 
 Otra forma de manejar \dependencies en la \viewtier consiste en utilizar el 
 mismo mecanismo de \depmgrs que se utiliza en la \logictier. Esto pone solución 
 a las problemáticas que acarrean las \cdns.\\
 \emph{Bower} y \emph{Component} son los \depmgrs más populares para la 
-\viewtier. Ambos son módulos de la plataforma \gls{node} y manejan las 
-\dependencies mediante un \conffile.\\
+\viewtier. Ambos son módulos de la plataforma \emph{Node.js}\footnote{
+	Node.js es un entorno de programación en la capa del servidor basado en el
+	lenguaje de programación \js, con I/O de datos en una arquitectura 
+	orientada a eventos y basado en el motor \js V8.
+} y manejan las \dependencies mediante un \conffile.\\
 Estas herramientas no se empaquetan de forma auto contenida, sino que requieren
-contar con herramientas externas como \git o \svn en la maquina en donde se va a
+contar con herramientas externas como \git o \svn en la máquina en donde se va a
 utilizar \citesq{Bower:ONLINE}. Más aún, los usuarios de lenguajes que corren 
-sobre la plataforma \java muchas veces carecen de acceso a la maquina física, 
+sobre la plataforma \java muchas veces carecen de acceso a la máquina física, 
 por fuera de la \jvm, haciendo imposible utilizar estas opciones.\\
 Adicionalmente, existen soluciones que se enfocan en un tipo especifico de 
 dependencia, como \emph{RequireJS} y \emph{Browserify} que permiten manejar 
-solamente archivos \js, sin utilizar archivos \conffiles, sino mediante una 
+solamente archivos \js, sin utilizar \conffiles, sino mediante una 
 línea de código en el programa del usuario \citesq{Franko:2013:BOOK}.\\
-Todas estas soluciones se presentan bastante incompletas en comparación a las
+Todas éstas soluciones se presentan bastante incompletas en comparación a las
 disponibles en la \viewtier. Además, al requerir herramientas que no son
 independientes del sistema operativo, generan muchas complicaciones al momento
 de configurar el entorno de desarrollo o de puesta en producción del sistema.
-Finalmente, fuerzan al desarrollador a aprender una nueva tecnología, proceso
+Finalmente, fuerzan al programador a aprender una nueva tecnología, proceso
 que lleva tiempo y esfuerzo.
 
-\subsection{Funcionamiento de Fronttier}
+\subsection{Funcionamiento de \fronttier}
 \label{subsec:depmgmnt:proposal}
 
 La herramienta propuesta funciona mediante un \conffile de forma similar a las
-opciones disponibles para la \logictier. Además, los \conffile que utiliza la
-herramienta, pueden poseer formatos distintos, adaptándose a los formatos que
-los desarrolladores ya conocen de otras herramientas.\\
-A diferencia de las opciones de manejo de dependencias que funcionan en la
-\viewtier de esta forma, la herramienta propuesta no requiere herramientas
-externas, y todo corre sobre la \jvm.
+opciones disponibles para la \logictier. Además, los \conffile que utiliza, 
+pueden poseer formatos distintos, adaptándose a los que los desarrolladores ya 
+conocen de otras herramientas.\\
+A diferencia de las opciones de manejo de \dependencies que funcionan en la
+\viewtier, \fronttier no requiere herramientas externas, y todo corre sobre la \jvm.

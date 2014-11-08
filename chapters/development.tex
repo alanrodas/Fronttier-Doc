@@ -1,70 +1,136 @@
 \setcounter{figure}{0}
 \renewcommand{\figurename}{UML}
 
-\section{Desarrollo}
+\section{Desarrollo de \fronttier}
 
-El sistema se desarrolló realizando módulos independientes entre sí, y finalmente conectando todo en el sistema \fronttier.\\
+El sistema está compuesto por dos módulos independientes, \scaliapp y 
+\scalavcs, y por el código principal de \fronttier. \scaliapp se centra en 
+permitir desarrollar aplicaciones que corren desde la \cli de forma rápida y 
+sencilla, mientras que \scalavcs brinda una capa de abstracción a los 
+repositorios de control de versiones. Ambas bibliotecas son utilizadas desde 
+\fronttier, pero pueden también ser utilizadas en otros proyectos.\\
+El código desarrollado es lo más simple posible para una mayor escalabilidad y 
+mejor mantenimiento a futuro. Todas las características avanzadas de \scala 
+fueron usadas en la implementación.\\
+El código y la documentación detallada para cada uno de los objetos, clases y 
+métodos se encuentra disponible para su análisis en el sitio web de \fronttier 
+(\emph{http://fronttier.alanrodas.com}).
 
-\subsection{El modelo general}
+\subsection{Patrones de diseño y desarrollo en \scala}
+
+Al desarrollar sistemas se utilizan generalmente una serie de soluciones 
+reutilizables para problemas comunes, las cuales se denominan \emph{patrones de 
+diseño}. En algunos casos, los \emph{patrones de diseño} son una señal de 
+una característica faltante en el lenguaje de programación usado. El diseño del 
+lenguaje \scala soluciona por sí mismo muchos de los patrones clásicos, tanto 
+de la \emph{Programación Orientada a Objetos} \citesq{Gamma:1995:BOOK}, como de 
+la \emph{Programación Funcional} \citesq{Yorgey:2009:ONLINE}.\\
+Así, el patrón \emph{singleton} se utilizó en varias oportunidades mediante la 
+creación de objetos con \code{object} y \emph{factory methods} fueron 
+utilizados mediante el uso de \code{apply} como constructores. Las conversiones 
+implícitas en el lenguaje permitieron implementar el patrón \emph{adapter}, 
+mientras que utilizar el patrón \emph{value object} fue trivial gracias al uso 
+de \code{case classes}. Los patrones \emph{command}, \emph{strategy} y 
+\emph{chain of responsibility} se lograron mediante la posibilidad de usar 
+funciones como elementos de primer nivel que pueden pasarse por parámetro, o la 
+posibilidad de tener funciones parciales. El patrón \emph{null object} se logró 
+mediante el uso de \code{Option}, aunque la funcionalidad no es exactamente 
+igual al patrón tradicional. Por último, el patrón \emph{dependency injection} 
+se logra mediante el uso de \code{traits} y la capacidad de asociarlos a un 
+objeto particular en lugar de a una clase, algo conocido como \emph{cake 
+pattern} \citesq{Bonér:2008:ONLINE}.\\
+En cuanto a los patrones de diseño de lenguajes funcionales, \scala provee 
+\emph{functores} y \emph{monadas} en clases como \code{Option} y \code{Either} o \code{Error}. Estas clases fueron ampliamente utilizadas en el código de \fronttier, de \scalavcs y \scaliapp. Además, \scala provee \emph{pattern matching}, \emph{inferencia de tipos} y  otras características que suelen ser comunes de lenguajes funcionales.\\
+Finalmente, \scala da la posibilidad de utilizar métodos que toman un solo 
+argumento de forma infija o llamar métodos sin utilizar paréntesis. Ésto, junto 
+con las caracteristicas de \code{package objects} y el patrón \emph{builder}, 
+permite crear lenguajes de dominio específico (DSLs). Esta técnica es 
+ampliamente utilizada para proveer una interfaz más clara y concisa a los 
+desarrolladores o incluso a clientes como explica 
+\citeauthor{Venners:2009:ONLINE} en \citetitle{Venners:2009:ONLINE}, y fue 
+usada en \fronttier y las bibliotecas para dar una mayor expresibilidad al 
+código a usar. 
 
 \subsection{Modelo del parser de \cli}
 
-El módulo \scaliapp es una biblioteca que funciona de forma independiente para crear aplicaciones de \cli.\\
-A través de un simple DSL y mediante extender la clase \scaliapp se pueden crear aplicaciones que toman comando de forma rápida. Cada comando tiene una función asociada la cual se activa al recibir la aplicación dicho comando. Además, se pueden definir de forma rápida argumentos, en su modo largo y corto, \flags y argumentos que reciben parámetros.\\
-El código principal se encuentra en el paquete \jcode{com.alanrodas.scaliapp}, el cual, al importarlo, provee todas las clases y funciones necesarias para utilizar el DSL.\\
-El UML en \ref{uml:scaliapp:general} da una vista simplificada de sCaLIapp. \scaliapp no es más que una clase que provee las mismas funcionalidades que \jcode{App} en \scala, pero evaluando todos los comandos declarados y delegando en \jcode{CommandManager} su procesamiento.\\
-Para cada \jcode{Command} existe un \jcode{callback}, una función que dado una lista de \jcode{ValuedArgument} (los valores pasados a la aplicación para ese comando) devuelven un entero. El entero devuelto representa la salida del programa (cero para programas que terminaron correctamente, o el número de error correspondiente en caso contrario). A su vez, se espera que la ejecución de dicho \jcode{callback} genere algún efecto, por ejemplo, mostrando un mensaje en la terminal del usuario, o ejecutando una porción de código determinado.\\
+El módulo \scaliapp es una biblioteca para crear aplicaciones de \cli y que 
+funciona de forma completamente independiente a \fronttier.\\
+La biblioteca permite extender la clase \code{CLIApp} para crear aplicaciones 
+capaces de ser ejecutadas desde la \cli recibiendo argumentos, flags y 
+comandos. Para ello, \scaliapp provee un DSL que ayuda a especificar los 
+comandos que serán válidos para la aplicación, que argumentos podrá recibir, y 
+qué acción se ejecutará una vez recibido dicho comando.\\
+El código principal se encuentra en el paquete \code{com.alanrodas.scaliapp}, 
+el cual, al importarlo, provee todas las clases y funciones necesarias para 
+utilizar el DSL. Además provee la clase \code{CLIApp}. La misma debe ser 
+extendida por el usuario en el objeto que declarará en su cuerpo los comandos 
+válidos de la aplicación. \code{CLIApp} se encargará de ejecutar el código 
+correspondiente al \code{callback} del comando ejecutado al invocarse la 
+aplicación.\\
+El UML en la \figref{uml:scaliapp:general} provee una vista simplificada del 
+modelo de definiciones de \scaliapp. \code{CLIApp} no es más que una clase que 
+provee las mismas funcionalidades que \code{App} en \scala, pero evaluando 
+todos los comandos declarados y delegando su procesamiento en 
+\code{CommandManager}. Para cada \code{CommandDefinition} existe un 
+\code{callback}, una función que será ejecutada cuando se invoque el comando 
+correspondiente, y que recibirá los datos que se hayan pasado al comando. Estas 
+funciones no tienen valor de retorno y se espera que ejecuten alguna acción 
+concreta.\\
 
 \begin{figure}[htb]
 \tiny
 \centering{
 \begin{tikzpicture}
-	\begin{object}[text width=5cm]{CLIApp}{0,8}
+	\begin{object}[text width=5cm]{CLIApp}{0,18}
 		\operation{main(args : Array[String]) : void}
 	\end{object}
 	
-	\begin{object}[text width=7cm]{CommandManager}{9,8}
-		\operation{addCommand(command : Command) : Command}
-		\operation{execute(args : Array[String]) : Seq[ValuedArgument[\_]]}
+	\begin{object}[text width=7cm]{CommandManager}{9,18}
+		\operation{execute(args : Array[String])}
 	\end{object}
 	
-	\aggregation{CLIApp}{commands}{1..1}{CommandManager}
+	\aggregation{CLIApp}{manager}{1..1}{CommandManager}
 	
-	\begin{abstractclass}[text width=5cm]{Command}{9,5}
+	\begin{abstractclass}[text width=5cm]{CommandDefinition}{9,16}
 		\attribute{name : String}
-		\attribute{description : String}
-		\attribute{dashedArguments : Map[String,Parameter]}
-		\operation{isRoot() : Boolean}
-		\operation{hasRequiredArguments() : Boolean}
-		\operation{hasDashedArgNamed() : Boolean}
-		\operation{dashedArgument() : Boolean}
 	\end{abstractclass}
 	
-	\aggregation{CommandManager}{manager}{1..*}{Command}
+	\aggregation{CommandManager}{commands}{1..*}{CommandDefinition}
 	
-	\begin{class}[text width=5cm]{ArgumentCommand}{4,0}
-		\inherit{Command}
-		\attribute{callback : List[UnamedArgument] => Int}
+	\begin{class}[text width=5cm]{FiniteValuesCommand}{4,12}
+		\inherit{CommandDefinition}
+		\attribute{callback : FiniteValuesCommand => Unit}
 	\end{class}
 	
-	\begin{class}[text width=6cm]{MultiArgumentCommand}{10,0}
-		\inherit{Command}
-		\attribute{callback : Map[String, NamedArgument] => Int}
+	\begin{class}[text width=6cm]{MultipleValuesCommand}{10,12}
+		\inherit{CommandDefinition}
+		\attribute{callback : MultipleValuesCommand => Unit}
 	\end{class}
 	
-	\begin{abstractclass}[text width=5cm]{ValuedArgument[RType]}{2,4}
-		\attribute{value : RType}
+	\begin{abstractclass}[text width=4cm]{ParameterDefinition}{2,16}
+		\attribute{value : String}
+		\attribute{name : String}
+		\attribute{alias : Option[String]}
 	\end{abstractclass}
 		
-	\begin{class}[text width=4cm]{UnnamedArgument[RType]}{4.5,2}
-		\inherit{ValuedArgument[RType]}
+	\begin{class}[text width=3cm]{ArgumentDefinition}{0,14}
+		\inherit{ParameterDefinition}
 	\end{class}
 	
-	\begin{class}[text width=4cm]{NamedArgument[RType]}{0,2}
-		\inherit{ValuedArgument[RType]}
+	\begin{class}[text width=3cm]{FlagDefinition}{4,14}
+		\inherit{ParameterDefinition}
 	\end{class}
 	
-	\unidirectionalAssociation{CommandManager}{}{}{ValuedArgument[RType]}
+	\unidirectionalAssociation{CommandDefinition}{}{}{ParameterDefinition}
+	
+	\begin{class}[text width=3cm]{ValueDefinition}{4,10}
+		\attribute{value : String}
+		\attribute{name : String}
+		\attribute{alias : Option[String]}
+	\end{class}
+	
+	\aggregation{FiniteValuesCommand}{values}{1..*}{ValueDefinition}
+	
 \end{tikzpicture}
 }
 \normalsize
@@ -72,21 +138,88 @@ Para cada \jcode{Command} existe un \jcode{callback}, una función que dado una 
 \label{uml:scaliapp:general}
 \end{figure}
 
-\scaliapp es una biblioteca completamente independiente del proyecto \fronttier, y por tanto, tiene sus propios objetivos, trabajos a futuro, etc.\\
-La idea de \scaliapp es la de poder construir aplicaciones que corran en la máquina del cliente de forma muy rápida y sencilla. No solo eso, sino que la idea general es que la herramienta sea lo suficientemente flexible como para soportar cualquier aplicación que corra desde la línea de comandos, incluyendo aplicaciones interactivas. Es por esto que el trabajo realizado en el presente en cuanto a \scaliapp no se da por concluido pues solamente se limitó al desarrollo de la parte que fuera imprescindible para \fronttier.
+Al ser una biblioteca completamente independiente del proyecto \fronttier, 
+\scaliapp tiene sus propios objetivos, trabajos a futuro, etc. En particular, 
+la idea general es que la herramienta sea lo suficientemente flexible como para 
+soportar cualquier aplicación que corra desde la \cli, incluyendo aplicaciones 
+interactivas. La documentación puntual, así como la información de tareas a 
+realizar y el código actualizado puede encontrarse en la web de \scaliapp 
+(http://scaliapp.alanrodas.com).\\
+Según nuestro punto de vista el trabajo realizado para \scaliapp no se 
+considera terminado pues solamente se limitó al desarrollo de la parte que 
+fuera imprescindible para \fronttier. Como trabajo a futuro en este ámbito, se 
+plantea el soporte de aplicaciones interactivas, mayor formato de comandos, 
+soporte multilenguaje y uso y generación de archivos de ayuda.\\
+Como aplicación que corre desde la \cli, \fronttier hace uso de \scaliapp para 
+determinar todos los comandos que serán válidos para la aplicación.
 
 \subsection{Modelo de \conffiles}
 
-Los \conffile de \fronttier se parsean en base a una serie de objetos registrados en el sistema. Cada uno de estos objetos extiende el trait \jcode{ConfParser} y reimplementa el método \jcode{parse}, así como los valores \jcode{id} y \jcode{name}.\\
-
+Los \conffiles de \fronttier se leen en base a una serie de objetos registrados 
+en el sistema. Cada uno de dichos objetos es instancia de una clase que 
+extiende el trait \code{ConfigParser} y reimplementa el método \code{parse}, 
+así como el valor \code{id}, entre otras propiedades.\\
+Todas las clases que implementan el trait \code{ConfigParser} son identificadas 
+automáticamente utilizando \emph{reflection} al comenzar la ejecución del 
+programa. Para cada clase, una nueva instancia de la misma es creada y 
+registrada en el sistema como encargada de analizar el \conffile que le 
+compete.\\
+\fronttier permite cargar paquetes JAR creados por terceros. Esto posibilita 
+cargar nuevos \emph{parsers} que son luego registrados automáticamente. Así, 
+los desarrolladores que quieran extender la herramienta de esta forma solamente 
+requerirán crear una clase que implemente \code{ConfigParser}.\\
+A lo largo de \fronttier, las instancias creadas al analizar los \emph{parsers} 
+son pasadas en un parámetro implícito. Además, estas instancias son creadas en 
+forma \emph{lazy}, de forma tal que se creen solamente objetos que van a ser 
+efectivamente utilizados, mejorando la performance de la aplicación.
 
 \subsection{Modelo de sistema de descargas}
 
-El modelo del sistema de descargas cuenta con dos partes. La parte de descargas mediante \http y que se encuentra dentro del modulo de \fronttier, y la parte de descargas desde sistemas de control de versiones, el cual hace uso del modulo \jcode{ScalaVCS}. Hablaremos primero de este último.\\
-\scalavcs es una biblioteca que intenta generar una capa de abstracción sobre el funcionamiento y de los distintos sistemas de control de versiones (VCSs), como \git, \svn, \emph{CVS}, \emph{Bazaar} y \emph{Mercurial}.\\
-Este modulo parte de la base de que existen una serie de acciones que el usuario puede desear realizar sobre un VCS, independientemente de cual sea este. Tales operaciones incluyen añadir un archivo al sistema de control, remover un archivo, listar los archivos agregados, salvar la versión actual, volver a una versión anterior, ver las versiones salvadas o comparar dos versiones salvadas, entre otras.\\
-A su vez, \scalavcs distingue dos tipos de sistemas de control de versiones, aquellos que funcionan con un solo servidor (\emph{CVS}, \svn) y los distribuidos (\git, \emph{Mercurial}, \emph{Bazaar}). Los sistemas distribuidos tienen acciones adicionales, como sincronizar de forma distribuida, o bajar una versión especifica.\\
-El diagrama UML \ref{uml:scalavcs:general} muestra la estructura básica de los repositorios de \scalavcs. Existe a su vez un objeto para cada tipo de sistema de control de versiones, que actúa a modo de constructor. La sintaxis de \scala junto con este patrón permite obtener un DSL muy claro y conciso.\\
+El modelo del sistema de descargas cuenta con dos partes: la parte de descargas 
+mediante \http y que se encuentra dentro del modulo de \fronttier; y la parte 
+de descargas desde sistemas de control de versiones, el cual hace uso del 
+modulo \scalavcs.\\
+Para descargar archivos mediante \http, \fronttier utiliza la biblioteca 
+\code{RaptureIO}, la cual provee una base de abstracción sobre el proceso de 
+entrada y salida en \scala. De esta forma, se puede descargar un archivo de 
+\internet y guardarlo en el disco duro como si el mismo estuviera en la máquina 
+local, sin preocuparse por particularidades del sistema operativo o el sistema 
+de archivos.\\
+Por otro lado, \fronttier utiliza \scalavcs para descargar archivos desde 
+sistemas de control de versiones (VCSs) como \git, \svn, \cvs,\bazaar y 
+\mercurial.\\
+\scalavcs provee una capa de abstracción sobre los distintos sistemas de 
+control de versiones, partiendo de la base que existen una serie de acciones 
+que el usuario puede desear realizar sobre un VCSs. Tales operaciones incluyen 
+añadir un archivo al sistema de control, remover un archivo, listar los 
+archivos agregados, salvar la versión actual, volver a una versión anterior, 
+ver las versiones salvadas o comparar dos versiones salvadas, entre otras.\\
+Así, \scalavcs provee clases que representan a cada uno de los posibles 
+sistemas de control de versiones, las cuales poseen métodos polimórficos para 
+dichas operaciones. Todo esto se acompaña de un DSL que permite ejecutar código 
+como el mostrado en el ejemplo \ref{development:scalavcs:sample}. El mismo 
+asemeja en gran medida los comandos que este tipo de herramientas proveen desde 
+la \cli.\\
+
+\begin{listing}[ht]
+	\begin{minted}[frame=lines]{scala}
+git = GIT clone "http://myrepo/mycoolproject"
+git rm "someFile"
+git add "*"
+git commit "Some message"
+	\end{minted}
+	\caption{Ejemplo del formato \emph{fronttier}}
+	\label{development:scalavcs:sample}
+\end{listing}
+
+A su vez, \scalavcs distingue dos tipos de sistemas de control de versiones:
+aquellos que funcionan con un solo servidor (\cvs, \svn) y los distribuidos 
+(\git, \mercurial, \bazaar). Los sistemas distribuidos tienen acciones 
+adicionales, como sincronizar de forma distribuida, o bajar una versión 
+específica.\\
+El diagrama UML \ref{uml:scalavcs:general} muestra la estructura básica de los 
+repositorios de \scalavcs. Existe, a su vez, un objeto para cada tipo de 
+sistema de control de versiones que actúa a modo de \emph{factory}.\\
 
 \begin{figure}[htb]
 \tiny
@@ -143,6 +276,40 @@ El diagrama UML \ref{uml:scalavcs:general} muestra la estructura básica de los 
 \label{uml:scalavcs:general}
 \end{figure}
 
-\scalavcs utiliza parámetros implícitos en todos los objetos que actúan de constructores. Estos parámetros pueden ser importados desde el paquete \jcode{com.alanrodas.scalavcs.connectors} y sus subpaquetes, pasándose automaticamente a los objetos constructores. Tienen por objetivo proveer el conector que se utilizará como cliente para un determinado sistema de VCS. Así, es posible usar un conector que utilice la aplicación \git mediante llamadas a la misma a través del sistema operativo, o utilizar una implementación realizada en completamente en \java, como \emph{SVNKit}.\\
-\fronttier utiliza entonces a \scalavcs para descargar todo lo referente a sistemas de control de versiones. Por otro lado, utiliza la biblioteca \emph{RaptureIO} para descargar contenidos desde \internet.\\
-\emph{RaptureIO} provee una base de abstracción sobre el proceso de entrada y salida en \scala. De esta forma, se puede descargar un archivo de \internet y guardarlos en el disco de forma transparente, como si fuesen todos archivos de la máquina local, y sin preocuparse por particularidades del sistema operativo.
+\scalavcs utiliza parámetros implícitos en todos los objetos que actúan de 
+\emph{factory}. Estos parámetros pueden ser importados desde el paquete
+\code{com. alanrodas.scalavcs.connectors} y sus subpaquetes, pasándose 
+automáticamente a los objetos constructores. Tienen por objetivo proveer el 
+\emph{conector} que se utilizará como cliente para un determinado sistema de 
+VCS. Así, es posible usar un conector que utilice la aplicación \svn mediante 
+llamadas a la misma a través del sistema operativo, o utilizar una 
+implementación desarrollada completamente en \java, como \emph{SVNKit}.\\
+\scalavcs también es un proyecto independiente de \fronttier. El desarrollo 
+realizado en esta herramienta es mínimo, por lo cual, no se ha lanzado ninguna 
+versión al momento de publicar el presente documento, quedando como trabajo a 
+futuro terminar la implementación para todos los VCSs. Puede seguirse el 
+desarrollo y planes a futuro del proyecto en el sitio web de \scalavcs 
+(http://scalavcs.alanrodas.com).
+
+\subsection{Modelo general}
+
+Las partes anteriores se combinan finalmente en \fronttier dando lugar a la 
+aplicación prácticamente completa. Las clases simples que representan los 
+conceptos básicos de \emph{repositorios}, \dependencies y otros, complementan 
+algunos patrones que cierran la aplicación. A esto, se suma al desarrollo de la 
+aplicación el agregado de \emph{logging}, el \emph{testing}, y los \emph{Scala 
+Docs} necesarios para una correcta documentación.\\
+Cabe mencionar que se utilizó \git como sistema de control de versiones en el 
+proyecto, \sbt como manejador de dependencias del mismo e \emph{IntelliJ IDEA} 
+como IDE de desarrollo. El sitio web de la herramienta fue desarrollado 
+utilizando \htmlv, con \js y \css.\\
+Por último, este documento, así como otros archivos de documentación en el 
+sitio, fueron creados con \emph{XeLaTeX}, \emph{Biber} y la herramienta 
+\emph{arara}\footnote{
+	\emph{arara} es una herramienta programada en Perl que permite simplificar 
+	el proceso de compilación de documentos de \emph{LaTeX}, \emph{XeLaTeX} y 
+	otros derivados de \emph{TeX} mediante comentarios en el documento.
+} para su compilación. La versión de \emph{TeX} utilizada corresponde a 
+\emph{TeXLive 2014}, con el paquete \emph{minted} en su versión de desarrollo, 
+y la herramienta de \emph{Python} \emph{pygmentize} en su versión 1.6. 
+\emph{TeX Studio} fue usado como IDE para los documentos.

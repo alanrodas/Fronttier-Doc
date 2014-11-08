@@ -1,4 +1,4 @@
-\section{Guía de Uso}
+\section{Uso de la herramienta}
 \label{sec:guide}
 
 La presente sección muestra el uso de la herramienta desarrollada. Inicialmente 
@@ -10,57 +10,55 @@ herramienta puede ser usada y extendida desde otros lenguajes.\\
 \label{subsec:guide:cli}
 
 Para correr la aplicación desde la \cli es necesario ejecutar el archivo \jar
-de la herramienta, a través de la \jvm.
-El siguiente código muestra como ejecutar \fronttier desde la interfaz de \cli:
+de la herramienta, a través de la \jvm. El siguiente código muestra como 
+ejecutar \fronttier desde la interfaz de \cli:
 \cmd{java -jar fronttier.jar}
 Adicionalmente, se puede pasar una serie de argumentos a la aplicación para 
 configurarla a gusto y necesidad del usuario, tal como se muestra a 
 continuación:
 \cmd{java -jar fronttier.jar <argumentos>}
 Con intención de simplificar el trabajo del usuario al momento de ejecutar la
-aplicación, \fronttier incluye un simple programa que puede ser colocado en 
+aplicación, \fronttier incluye un programa que puede ser colocado en 
 cualquier lugar accesible para el usuario\footnote{
-	Un lugar accesible es, por ejemplo, cualquier carpeta que se
-	encuentre dentro de la variable de entorno \quoted{PATH} en el sistema
-	operativo del usuario.
+	Un lugar accesible es, por ejemplo, cualquier carpeta que se encuentre 
+	dentro de la variable de entorno \quoted{PATH} en el sistema operativo del 
+	usuario.
 }, permitiendo ejecutar la aplicación de forma directa, tal como se muestra en 
 el siguiente ejemplo:
 \cmd{fronttier <argumentos>}
-En los próximas apartados se verán los argumentos posibles en más detalle, así 
-como la forma de configuración de la herramienta.
+A continuación se verán los argumentos posibles en más detalle, así como la 
+forma de configuración de la herramienta.
 
 \subsubsection{Uso con los valores por defecto}
 \label{subsubsec:guide:defaults}
 
 Es posible llamar al programa sin ningún argumento y obtener funcionalidad del 
-mismo mediante \quoted{convenciones} que \fronttier utiliza.\\
+mismo mediante convenciones que \fronttier utiliza.\\
 Al ser ejecutada sin ningún tipo de argumentos, \fronttier utilizará los 
-valores por defecto de la aplicación. Estos incluyen: utilizar la \cacheg, 
-buscar dependencias en un archivo de configuración con el formato estándar de 
-\fronttier con el nombre \emph{fronttier.ftt} e instalar las dependencias 
+valores por defecto de la aplicación. Éstos incluyen: utilizar la \cacheg, 
+buscar \dependencies en un archivo de configuración con el formato estándar de 
+\fronttier con el nombre \code{fronttier.ftt} e instalar las \dependencies 
 descargadas en el directorio local.\\
-En las próximas secciones se verá con mayor profundidad cómo funcionan cada uno 
-de los argumentos y a qué refieren los valores por defecto con mayor precisión.
 
 \subsubsection{Selección del archivo de configuración y su formato}
 \label{subsubsec:guide:confformat}
 
-Por defecto, \fronttier intentá localizar en el directorio actual un archivo 
-con el nombre de \emph{fronttier.ftt}. El mismo es donde se declaran las 
-dependencias y repositorios del \project.\\
+Por defecto, \fronttier intenta localizar en el directorio actual un archivo 
+con el nombre de \texttt{fronttier.ftt}. El mismo es donde se declaran las 
+\dependencies y repositorios del \project.\\
 A su vez, el usuario puede especificar un archivo distinto en donde buscar 
-dependencias. Esto se logra mediante la opción \ddashcmd{filename} o 
-\dashcmd{f} pasada como argumento a la aplicación e incluyendo luego el nombre 
-del archivo que se desea utilizar para declaración de dependencias y 
-repositorios. A continuación se puede observar un ejemplo de como llamar a la 
-aplicación para que lea un archivo llamado \emph{dependencies.ftt}:
+\dependencies. Ésto se logra mediante la opción \ddashcmd{filename} o 
+\dashcmd{F} pasada como argumento a la aplicación e incluyendo luego el nombre 
+del archivo que se desea utilizar para declaración de \dependencies y 
+repositorios. A continuación se puede observar un ejemplo de cómo llamar a la 
+aplicación para que lea un archivo llamado \code{dependencies.ftt}:
 \cmd{fronttier --filename dependencies.ftt}
-Estos archivos pueden tener internamente distintos formatos, es decir, distintas
-formas de representar la información. Cada formato posee un nombre único por el
-cual el usuario puede identificarlo y, así, indicarle a la herramienta qué 
-debería esperar de los contenidos del archivo de configuración. Esto se logra 
-mediante el argumento \ddashcmd{config} o \dashcmd{c}. El siguiente código 
-muestra como elegir un formato con nombre \quoted{xml}:
+Los archivos mencionados pueden tener internamente distintos formatos, es 
+decir, distintas formas de representar la información. Cada formato posee un 
+nombre único por el cual el usuario puede identificarlo y, así, indicarle a la 
+herramienta qué debería esperar de los contenidos del archivo de configuración. 
+Esto se logra mediante el argumento \ddashcmd{config} o \dashcmd{c}. El 
+siguiente código muestra como elegir un formato con nombre \code{xml}:
 \cmd{fronttier --config xml}
 Los formatos registrados por defecto en \fronttier son:
 \begin{itemize}
@@ -70,152 +68,103 @@ Los formatos registrados por defecto en \fronttier son:
 	\item fronttier
 	\item xml
 	\item attrxml
-	\item scale
 \end{itemize}
 Sin embargo, el usuario puede registrar nuevos formatos mediante extensiones
 a la herramienta. En caso de no especificar el formato del archivo, el formato 
 \emph{fronttier} es el utilizado.\\
 El formato elegido del archivo repercute sobre el nombre por defecto del
-mismo. Por ejemplo, el nombre de archivo por defecto para el
-formato \emph{xml} es \emph{fronttier.xml}, al igual que para el formato
-\emph{attrxml}. Por su parte el formato \emph{fronttier} buscará
-un archivo por el nombre de \emph{fornttier.ftt}.\\
+mismo. Por ejemplo, el nombre de archivo por defecto para el formato \code{xml}
+es \code{fronttier.xml}, al igual que para el formato \emph{attrxml}. Por su 
+parte, el formato \code{fronttier} buscará un archivo por el nombre de 
+\code{fronttier.ftt}.\\
 Los argumentos \ddashcmd{config} y \ddashcmd{filename} se pueden usar al mismo
 tiempo dando lugar a cualquier combinación de nombre de archivo y formato.
-Por ejemplo, el siguiente código muestra como utilizar \fronttier para que 
-utilice un archivo \emph{dependencies.xml} que posee formato \emph{xml}.
+Por ejemplo, el siguiente código muestra cómo ejecutar \fronttier para que 
+utilice un archivo \code{dependencies.xml} que posee formato \code{xml}.
 \cmd{fronttier --config xml --filename dependencies.xml}
 La estructura interna de cada uno de los formatos, así como la forma de 
-declarar dependencias y repositorios es especificada en la sección 
+declarar \dependencies y repositorios es especificada en la sección 
 \ref{subsec:formats}.
 
 \subsubsection{Elección de carpeta de destino}
 \label{subsubsec:guide:folder}
 
-Por defecto \fronttier trabaja sobre la carpeta actual, y es allí en
-donde se \emph{instalan} las dependencias descargadas.\\
+Por defecto \fronttier trabaja sobre la carpeta actual, y es allí donde se 
+\emph{instalan} las \dependencies descargadas.\\
 No obstante, la carpeta sobre la que trabajará la herramienta puede ser 
 especificada, de forma tal que las \dependencies se instalen en alguna carpeta
-especifica o una subcarpeta de la carpeta local. Para ello se utiliza el  
+específica o una subcarpeta de la carpeta local. Para ello se utiliza el  
 comando \ddashcmd{destination} o \dashcmd{d} seguido de la ubicación en donde 
-se desean descargar las dependencias.
+se desean descargar las \dependencies.
 \cmd{fronttier --destination <folder>}
-El valor por defecto es \emph{.}, es decir, la carpeta actual. Por tanto, los 
-siguientes dos comandos son equivalentes
+El valor por defecto es \code{.} (punto), es decir, la carpeta actual. Por 
+tanto, los siguientes dos comandos son equivalentes:
 \cmd{fronttier}
 \cmd{fronttier --destination .}
-El elegir la carpeta de destino resulta útil en proyectos en donde el código 
-compilado termina en una carpeta especifica que no forma parte del proyecto y 
-que se elimina cada vez que se recompila el mismo. Así, o más común es elegir 
-un subdirectorio de la carpeta de trabajo en donde se deben colocar las 
-dependencias previo a ejecutar el sistema. El siguiente ejemplo muestra como 
+La elección de la carpeta de destino resulta útil en proyectos donde el código 
+compilado termina en una carpeta específica que no forma parte del proyecto y 
+que se elimina cada vez que se recompila el mismo. Así, o más habitual es 
+elegir  un subdirectorio de la carpeta de trabajo donde se deben colocar las 
+\dependencies previo a ejecutar el sistema. El siguiente ejemplo muestra cómo 
 indicarle a \fronttier que utilice como carpeta de descarga un subdirectorio 
-con el nombre de
-\quoted{WEB-INF/html}:
+con el nombre de \quoted{WEB-INF/html}:
 \cmd{fronttier --destination ./WEB-INF/html}
 Si bien no es algo común, se pueden especificar también direcciones absolutas 
 en lugar de relativas. En caso de que las direcciones contengan espacios se 
-pueden utilizar comillas simples o dobles para escapar la dirección como se 
-muestra en el siguiente ejemplo.
+debe utilizar comillas simples o dobles para especificar la dirección completa, 
+como se muestra en el siguiente ejemplo:
 \cmd{fronttier --destination "C:\Web Dependencies"}
 Se debe tener en cuenta que \fronttier no realiza ninguna acción para limpiar 
-la carpeta de destino, con lo que el usuario deberá garantizar su limpieza 
-previo a futuras ejecuciones.
+la carpeta de destino, por lo que el usuario deberá garantizar su limpieza 
+previa a futuras ejecuciones.
 
 \subsubsection{Cache local y cache global}
 \label{subsubsec:guide:localmode}
 
-\fronttier mantiene en la maquina del usuario una cache con todos los archivos 
-que va descargando a lo largo de su uso. Esto permite acelerar el proceso de 
-\emph{instalación} de las dependencias en un proyecto  particular. Así, 
-\fronttier mantiene dos lugares que utiliza de cache, la \cachel y la \cacheg.\\
-La \cachel tiene alcance solo sobre el proyecto de código sobre el cual se está 
-trabajando (Es decir, el \conffile que se está leyendo y el directorio sobre el 
-cual se están instalando las dependencias). Su uso se limita a evitar tener que 
-descargar las dependencias en subsequentes ejecuciones del programa en ese 
-proyecto.\\
-Por su parte, la \cacheg contiene las dependencias descargadas por todos los 
-proyectos. Esta cache se utiliza no solo evitar la descarga de dependencias en 
-futuras ejecuciones del programa sobre un proyecto determinado, sino además 
-evitar la descarga en caso de que dos proyectos independientes requieran 
-eventualmente la misma dependencia.\\
-Las caches permiten adicionalmente trabajar sin la necesidad de
-una conexión a Internet, ya que no se deben descargar las dependencias, pues ya 
-se encuentran descargadas.\\
+\fronttier mantiene en la máquina del usuario una cache con todos los archivos 
+que va descargando a lo largo de su uso. Ésto permite acelerar el proceso de 
+\emph{instalación} de las \dependencies en un proyecto particular. Así, 
+\fronttier mantiene dos lugares que utiliza como cache, la \cachel y la 
+\cacheg.\\
+La \cachel tiene alcance sólo sobre el proyecto de código sobre el cual se está 
+trabajando (es decir, el \conffile que se está leyendo y el directorio sobre el 
+cual se están instalando las \dependencies). Su uso se limita a evitar tener 
+que descargar las \dependencies en subsecuentes ejecuciones del programa en el 
+mismo proyecto.\\
+Por su parte, la \cacheg contiene las \dependencies descargadas por todos los 
+proyectos. Ésta cache se utiliza, no sólo para evitar la descarga de 
+\dependencies en futuras ejecuciones del programa sobre un proyecto 
+determinado, sino además para evitar la descarga en caso de que dos proyectos 
+independientes requieran eventualmente la misma \dependency.\\
+Las caches permiten adicionalmente trabajar sin la necesidad de una conexión a 
+Internet, ya que no se deben descargar las \dependencies, pues ya se encuentran 
+el equipo.\\
 La \cacheg se encuentra en una carpeta creada por \fronttier en el directorio 
 personal del usuario. Por su parte, la \cachel se encuentra en una carpeta 
 similar, pero localizada en el directorio del proyecto sobre el que aplica 
-dicha cache. Las estructuras de carpetas expresadas en 
-\ref{folders:repos:linux}, \ref{folders:repos:windows} y
-\ref{folders:repos:osx} muestran la ubicación de las carpetas de cache en 
-distintos sistemas operativos.
+dicha cache. Las caches se ubican en los siguientes directorios.
 
-\begin{folders}[h]
-	\dirtree{%
-		.1 /.
-			.2 home.
-				.3 username.
-					.4 .ftt.
-						.5 Repository\DTcomment{Cache Global}.
-					.4 proyectos.
-						.5 miProyecto.
-							.6 .ftt.
-								.7 Repository\DTcomment{Cache Local}.
-					.4 \ldots.
-			.2 \ldots.
-	}
-	\caption{Caches en un sistema Linux}
-	\label{folders:repos:linux}
-\end{folders}
+\begin{description}
+	\item[Cache global] \hfill \\
+	$\sim$/.ftt/Repository
+	\item[Caches local] \hfill \\
+	\%PROJECT\_FOLDER\%/.ftt/Repository
+\end{description}
 
-\begin{folders}[h]
-	\dirtree{%
-		.1 C:/.
-			.2 Users.
-				.3 username.
-					.4 .ftt.
-						.5 Repository\DTcomment{Cache Global}.
-					.4 proyectos.
-						.5 miProyecto.
-							.6 .ftt.
-								.7 Repository\DTcomment{Cache Local}.
-					.4 \ldots.
-			.2 \ldots.
-	}
-	\caption{Caches en un sistema Windows}
-	\label{folders:repos:windows}
-\end{folders}
-
-\begin{folders}[h]
-	\dirtree{%
-		.1 /.
-			.2 Users.
-				.3 username.
-					.4 .ftt.
-						.5 Reporitory\DTcomment{Cache Global}.
-					.4 proyectos.
-						.5 miProyecto.
-							.6 .ftt.
-								.7 Repository\DTcomment{Cache Local}.
-					.4 \ldots.
-			.2 \ldots.
-	}
-	\caption{Caches en un sistema Mac OS X}
-	\label{folders:repos:osx}
-\end{folders}
-
-Para comprender un poco mejor el sistema de caches es necesario comprender como 
-\fronttier descarga dependencias. En primer lugar, \fronttier leerá el \conffile
-y analizará las dependencias a instalar. Para cada \dependency, se evaluará si 
-existe en la \cachel, si se encuentra, se copiara desde la misma a la carpeta 
-en donde se requiera instalar la \dependency. En caso de no encontrarse, se 
-recurrirá a buscarla en la \cacheg para copiarla desde allí. Finalmente, si no 
-se encuentra en las caches, se descargará de alguno de los \onlinerepo 
-disponibles. \fronttier indicará un error al usuario si no encuentra en estos 
-últimos la \dependency.\\
+Donde \quoted{\%PROJECT\_FOLDER\%} es el directorio del proyecto sobre el cual 
+se está trabajando.\\
+Para comprender mejor el sistema de caches es necesario comprender cómo 
+\fronttier descarga \dependencies. En primer lugar, \fronttier leerá el 
+\conffile y analizará las \dependencies a instalar. Para cada \dependency, se 
+evaluará si existe en la \cachel. Si se encuentra, se copiará desde la misma a 
+la carpeta donde se requiera instalar la \dependency. En caso de no 
+encontrarse, se recurrirá a buscarla en la \cacheg para copiarla desde allí. 
+Finalmente, si no se encuentra en las caches, se descargará de alguno de los 
+\onlinerepo disponibles. \fronttier indicará un error al usuario si no 
+encuentra en éstos últimos la \dependency.\\
 \fronttier copiará por defecto las \dependencies que descargue desde 
-\onlinerepo a la \cacheg para futuros usos. Este comportamiento esta
-dado mediante el \flag \ddashcmd{global} o \dashcmd{g}. Así, los siguientes dos 
+\onlinerepo a la \cacheg para futuros usos. Éste comportamiento está dado 
+mediante el \flag \ddashcmd{global} o \dashcmd{g}. Así, los siguientes dos 
 códigos son equivalentes:
 \cmd{fronttier}
 \cmd{fronttier -g}
@@ -223,29 +172,31 @@ Mediante el \flag \ddashcmd{local} o \dashcmd{l} se puede indicar que no se
 desea copiar las \dependencies a la \cacheg sino a la local. Esto puede 
 resultar útil en algunos proyectos. El \flag \ddashcmd{nocache} evita que se 
 guarden las \dependencies descargadas en cualquiera de las caches.\\
-Por ultimo, se puede utilizar el \flag \dashcmd{f} o \ddashcmd{force} para 
+Por último, se puede utilizar el \flag \dashcmd{f} o \ddashcmd{force} para 
 forzar la descarga de una \dependency desde los \onlinerepo incluso si
 se encuentran en alguna cache. Esta acción reemplazará la versión actual en
-la cache con la nueva versión.\\
-Todos estos \flags pueden combinarse para dar lugar a acciones determinadas. Por 
-ejemplo, el siguiente código muestra como descargar dependencias sin guardarlas
-en la cache, y utilizando siempre la versión disponible en los \onlinerepo.
+la cache por la recién descargada.\\
+Todos estos \flags pueden combinarse para dar lugar a acciones determinadas. 
+Por ejemplo, el siguiente código muestra cómo descargar \dependencies sin 
+guardarlas en la cache, y utilizando siempre la versión disponible en los 
+\onlinerepo.
 \cmd{fronttier --nocache -f}
-También es posible descargar las dependencias en la \cachel, independientemente 
-de si se encuentran en alguna de las caches, como muestra el siguiente código.
+También es posible descargar las \dependencies en la \cachel, 
+independientemente de si se encuentran en alguna de las caches, como muestra el 
+siguiente código.
 \cmd{fronttier -lf}
-Note que los \flags en su formato corto pueden agruparse utilizando un solo 
-signo - y pasando todos los \flags juntos. Así \dashcmd{lf} es equivalente a 
-\dashcmd{l} \dashcmd{f}.
+Cabe destacar que los \flags en su formato corto pueden agruparse utilizando un
+guión solo (-) y pasando todos los \flags juntos. Así \dashcmd{lf} es 
+equivalente a \dashcmd{l} \dashcmd{f}.
 
 
 \subsubsection{Modo verbose}
 \label{subsubsec:guide:verbose}
 
 Por defecto \fronttier brinda muy poca información al usuario con respecto a
-que está haciendo en cada momento, indicando solamente los errores que se 
-puedan llegar a producir. Es posible, sin embargo, cambiar dicho comportamiento 
-activando el modo \quoted{verbose}.\\
+las acciones que realiza en cada momento, indicando solamente los errores que 
+se puedan llegar a producir. Sin embargo, es posible cambiar dicho 
+comportamiento activando el modo \code{verbose}.\\
 Precisamente el \flag \ddashcmd{verbose} o \dashcmd{v} activa este modo 
 permitiendo ver información de todos los pasos que la herramienta va 
 realizando. Esto resulta útil en caso de errores inesperados para poder 
@@ -258,80 +209,32 @@ descubrir el origen de los mismos.\\
 La herramienta \fronttier puede ser extendida por código del usuario. Esto 
 permite, entre otras cosas, agregar nuevos formatos de \conffile.\\
 Para extender el programa, basta cargar los archivos \jar (código compilado a
-\bytecode \java) que contienen las extensiones. Esto se realiza mediante el 
-argumento \ddashcmd{load} o \dashcmd{l} el cual recibe el o los nombres de 
-archivo a cargar, al que se denomina \plugin. Por ejemplo, para cargar los 
-archivos \quoted{first.jar} y \emph{second.jar} se debería ejecutar la 
+\bytecode \java) que contienen las extensiones, a los cuales llamaremos 
+\plugins. Ésto se realiza mediante el argumento \ddashcmd{load} o \dashcmd{L} 
+el cual recibe el o los \plugins a cargar. Por ejemplo, para cargar los 
+\plugins \quoted{first.jar} y \quoted{second.jar} se debería ejecutar la 
 aplicación de la siguiente forma:
-\cmd{fronttier -l first second}
+\cmd{fronttier -L first second}
 La extensión del archivo no es necesaria pues se asume que siempre será .jar.\\
 Los archivos de extensión, en este caso, se encuentran en la carpeta actual
 desde donde se ejecuta la aplicación. También se pueden utilizar rutas
 absolutas o relativas para llamar a los archivos como se muestra a continuación:
 \cmd{fronttier --load "C:\Fronttier Extensions\first"}
 Finalmente, cabe destacar la posibilidad de \emph{instalar} extensiones en
-una carpeta global o local de forma tal que puedan ser utilizados en cualquier
+una carpeta global o local para que puedan ser utilizados en cualquier
 momento. Esta carpeta actúa de forma similar a la cache para los archivos
-de dependencia. De hecho, su ubicación es precisamente en un directorio hermano
-a la carpeta del repositorio de cache. En las estructuras de carpetas
-\ref{folders:plugins:linux}, \ref{folders:plugins:windows} y 
-\ref{folders:plugins:osx} se muestra la ubicación de las carpetas de 
-extensiones de \fronttier.
+de \dependency. De hecho, su ubicación es precisamente en un directorio hermano
+a la carpeta del repositorio de cache. A continuación se detalla su ubicación:
 
-\begin{folders}[h]
-	\dirtree{%
-		.1 /.
-			.2 home.
-				.3 username.
-					.4 .ftt.
-						.5 Plugins\DTcomment{Cache de Plugins Global}.
-					.4 proyectos.
-						.5 miProyecto.
-							.6 .ftt.
-								.7 Plugins\DTcomment{Cache de Plugins Local}.
-					.4 \ldots.
-			.2 \ldots.
-	}
-	\caption{Cache de Plugins en un sistema Linux}
-	\label{folders:plugins:linux}
-\end{folders}
+\begin{description}
+	\item[Cache de plugins global] \hfill \\
+	$\sim$/.ftt/Plugins
+	\item[Caches de plugins local] \hfill \\
+	\%PROJECT\_FOLDER\%/.ftt/Plugins
+\end{description}
 
-\begin{folders}[h]
-	\dirtree{%
-		.1 C:/.
-			.2 Users.
-				.3 username.
-					.4 .ftt.
-						.5 Plugins\DTcomment{Cache de Plugins Global}.
-					.4 proyectos.
-						.5 miProyecto.
-							.6 .ftt.
-								.7 Pluginsitory\DTcomment{Cache de Plugins Local}.
-					.4 \ldots.
-			.2 \ldots.
-	}
-	\caption{Cache de Plugins en un sistema Windows}
-	\label{folders:plugins:windows}
-\end{folders}
-
-\begin{folders}[h]
-	\dirtree{%
-		.1 /.
-			.2 Users.
-				.3 username.
-					.4 .ftt.
-						.5 Plugins\DTcomment{Cache de Plugins Global}.
-					.4 proyectos.
-						.5 miProyecto.
-							.6 .ftt.
-								.7 Plugins\DTcomment{Cache de Plugins Local}.
-					.4 \ldots.
-		.2 \ldots.
-	}
-	\caption{Cache de Plugins en un sistema Mac OS X}
-	\label{folders:plugins:osx}
-\end{folders}
-
+Donde \quoted{PROJECT\_FOLDER} es el directorio del proyecto sobre el cual 
+se está trabajando.\\
 Los archivos \jar que se encuentren en una carpeta de \emph{cache de plugins} 
 pueden  ser utilizados como si se encontraran en la carpeta actual, es decir, 
 mediante su nombre.\\
@@ -346,173 +249,127 @@ primero, indicando un error en caso de no encontrar coincidencias.\\
 \fronttier incluye una serie de comandos adicionales para facilitar el manejo de
 la herramienta y realizar tareas básicas sin necesidad de utilizar un archivo
 de configuración o realizar dichas tareas manualmente. Esto incluye cosas como
-instalar dependencias, copiar dependencias a la cache, borrar dependencias de la
-cache, instalar o desinstalar \plugins, etc.
+instalar \dependencies, copiar \dependencies a la cache, borrar \dependencies 
+de la cache, instalar o desinstalar \plugins, etc.
 
-\subsubsection{Instalar dependencias}
+\subsubsection{Instalación de \dependencies}
 \label{subsubsec:commands:install}
 
-Es posible instalar dependencias sin la necesidad de declararlas en un archivo 
-de configuración mediante el uso del comando \emph{install}. Este comando 
-tomará como argumento el nombre de la dependencia a instalar. El siguiente 
-código muestra como funciona el comando:\\
+Es posible instalar \dependencies sin la necesidad de declararlas en un 
+\conffile mediante el uso del comando \code{install}. Este comando tomará como 
+argumento el nombre de la \dependency a instalar. El siguiente código muestra 
+cómo funciona el comando:\\
 \cmd{fronttier install {company}:{package}:[{version}]}
-Donde \emph{company} y \emph{package} son cadenas de texto que hacen referencia 
-inequívoca a la dependencia a instalar. Opcionalmente \emph{version} puede ser 
-especificado para indicar una versión especifica del mismo (Si no se indica, se 
-descargará la versión más reciente). El siguiente código muestra un ejemplo 
-puntual para descargar la biblioteca \emph{jQuery} en su versión 1.9.0:
+Donde \code{company} y \code{package} son cadenas de texto que hacen referencia 
+inequívoca a la \dependency a instalar. Opcionalmente \code{version} puede ser 
+especificado para indicar una versión puntual del mismo (si no se indica, se 
+descargará la más reciente). El siguiente código muestra un ejemplo 
+puntual para descargar la biblioteca \code{jQuery} en su versión \code{1.9.0}:
 \cmd{fronttier install org.jquery:jquery:1.9.0}
-La mayoría de los argumentos especificados en la sección \ref{subsec:guide:cli} 
-pueden ser utilizados, quedando exceptuados aquellos que refieren a los 
-\conffiles. Por ejemplo, el argumento \ddashcmd{destination} o \dashcmd{d} 
-puede ser utilizado como se muestra a continuación:
+La mayoría de los argumentos descriptos en la sección \ref{subsec:guide:cli} 
+pueden ser utilizados, quedando exceptuados aquellos que refieren a los  
+\conffiles. Por ejemplo, el argumento \ddashcmd{destination} o \dashcmd{d}, 
+especificados en la sección \ref{subsubsec:guide:folder}, puede ser utilizado 
+como se muestra a continuación:
 \cmd{fronttier install org.jquery:jquery:2.0 -l -d ./WEB-INF/html}
 La búsqueda del archivo en las caches es exactamente igual a cuando se trabaja 
 con un \conffile. 
 
-\subsubsection{Cachear dependencias}
+\subsubsection{Cachear \dependencies}
 \label{subsubsec:commands:cache}
 
-El comando \emph{cache} y el comando \emph{delete} permiten guardar y borrar
-dependencias en la cache de dependencias de \fronttier. Se puede entonces pedir 
+El comando \code{cache} y el comando \code{uncache} permiten guardar y borrar
+\dependencies en la cache de \dependencies de \fronttier. Se puede entonces pedir 
 que un determinado archivo se descargue a la cache de la siguiente forma:\\
 \cmd{fronttier cache org.jquery:jquery:1.9.0}
-Los argumentos \ddashcmd{global} o \dashcmd{g} y \ddashcmd{local} o \dashcmd{l} 
-pueden ser utilizados para indicar exactamente sobre que cache se va a 
-trabajar. Por ejemplo, el siguiente código remueve un archivo de la \cachel:
-\cmd{fronttier remove org.jquery:jquery:1.9.0 -l}
+Los argumentos \ddashcmd{global} o \dashcmd{g} y \ddashcmd{local} o 
+\dashcmd{l}, presentados en la sección \ref{subsubsec:guide:localmode}, pueden 
+ser utilizados para indicar exactamente sobre qué cache se va a trabajar. Por 
+ejemplo, el siguiente código remueve un archivo de la \cachel:
+\cmd{fronttier uncache org.jquery:jquery:1.9.0 --local}
 
 \subsubsection{Instalar \plugins}
 \label{subsubsec:commands:plugins}
 
 Los \plugins pueden ser instalados a las \emph{caches de plugins} mediante los 
-comandos \emph{plug} y desinstalados con el comando \emph{unplug}. Los \flags
-\ddashcmd{global} o \dashcmd{g} y \ddashcmd{local} o \dashcmd{l} pueden ser 
-utilizados. A continuación se muestra como instalar un \plugin desde la carpeta 
-local a la \plugincacheg:
+comandos \code{plug} y desinstalados con el comando \code{unplug}. Los \flags
+\ddashcmd{global} o \dashcmd{g} y \ddashcmd{local} o \dashcmd{l}, presentados 
+en la sección \ref{subsubsec:guide:localmode}, pueden ser utilizados. A 
+continuación se muestra cómo instalar un \plugin desde la carpeta local a la 
+\plugincacheg:
 \cmd{fronttier plug myCoolPlugin}
-Y aquí como desinstalar un \plugin desde la \plugincachel:
+Y aquí cómo desinstalar un \plugin desde la \plugincachel:
 \cmd{fronttier unplug myCoolPlugin -l}
 
 \subsection{Archivos de defaults de la herramienta}
 \label{subsec:guide:conffiles}
 
-\fronttier trabaja con varios valores predeterminados que incluyen cosas como el
-formato del \conffile a utilizar o que cache usar. Estos valores pueden ser 
-modificados mediante los llamados archivos de defaults de \fronttier.\\
+\fronttier trabaja con varios valores predeterminados, como el formato del 
+\conffile a utilizar o qué cache usar. Éstos valores pueden ser modificados 
+mediante los llamados archivos de defaults de \fronttier.\\
 Así, pueden existir una serie de archivos que deben tener por nombre 
-\emph{.fttrc} y que modifican los valores por defecto de la herramienta cuando 
-esta es utilizada desde la linea de comandos. Los archivos deben encontrarse en 
-alguna de las siguientes 3 ubicaciones:
+\emph{defaults} y que modifican los valores por defecto de la herramienta 
+cuando ésta es utilizada desde la \cli. Éstos archivos se 
+encuentran en:
 
-\begin{itemize}
-	\setlength{\itemsep}{1pt}
-	\setlength{\parskip}{0pt}
-	\setlength{\parsep}{0pt}
-	\item La carpeta de trabajo actual, o carpeta de proyecto
-	\item La carpeta personal del usuario
-	\item La carpeta de archivos de configuración, comúnmente denominada /etc
-\end{itemize}
+\begin{description}
+	\item[Archivo de \defaults global] \hfill \\
+	$\sim$/.ftt/defaults
+	\item[Archivo de \defaults local] \hfill \\
+	\%PROJECT\_FOLDER\%/.ftt/defaults
+\end{description}
 
-Los ejemplos de estructuras de carpetas \ref{folders:conf:linux}, 
-\ref{folders:conf:windows} y \ref{folders:conf:osx} muestran la ubicación de 
-cada uno de estos archivos en los sistemas operativos más comunes.
-
-\begin{folders}[h]
-	\dirtree{%
-		.1 /.
-			.2 etc.
-				.3 .fttrc\DTcomment{Archivo Defaults Global}.
-			.2 home.
-				.3 username.
-					.4 .fttrc\DTcomment{Archivo Defaults  de Usuario}.
-					.4 proyectos.
-						.5 miProyecto
-							.6 .fttrc\DTcomment{Archivo Defaults Local}.
-					.4 \ldots.
-			.2 \ldots.
-	}
-	\caption{Archivos de defaults en un sistema Linux}
-	\label{folders:conf:linux}
-\end{folders}
-
-\begin{folders}[h]
-	\dirtree{%
-		.1 C:/.
-			.2 Windows
-				.3 System32
-					.4 Drivers
-						.5 etc.
-							.6 .fttrc\DTcomment{Archivo Defaults Global}.
-			.2 Users.
-				.3 username.
-					.4 .fttrc\DTcomment{Archivo Defaults de Usuario}.
-					.4 proyectos.
-						.5 miProyecto
-							.6 .fttrc\DTcomment{Archivo Defaults Local}.
-					.4 \ldots.
-			.2 \ldots.
-	}
-	\caption{Archivos de defaults en un sistema Windows}
-	\label{folders:conf:windows}
-\end{folders}
-
-\begin{folders}[h]
-	\dirtree{%
-		.1 /.
-			.2 etc.
-				.3 .fttrc\DTcomment{Archivo Defaults Global}.
-			.2 Users.
-				.3 username.
-					.4 .fttrc\DTcomment{Archivo Defaults de Usuario}.
-					.4 proyectos.
-						.5 miProyecto
-							.6 .fttrc\DTcomment{Archivo Defaults Local}.
-					.4 \ldots.
-			.2 \ldots.
-	}  
-	\caption{Archivos de defaults en un sistema Mac OS X}
-	\label{folders:conf:osx}
-\end{folders}
-
+Donde \quoted{\%PROJECT\_FOLDER\%} es el directorio del proyecto sobre el cual 
+se está trabajando.\\
 Cada archivo posee configuraciones para la ejecución por defecto de 
-\fronttier.\\
-El manual de la aplicación provee las indicaciones necesarias para crear y 
-modificar estos archivos, así como los contenidos esperados en los mismos.
+\fronttier. En primer lugar, se cargarán los valores por defecto
+generales, luego se leerán los valores del archivo \defaults global. En este 
+momento, los valores definidos en ese archivo \quoted{sobreescribirán}\footnote{
+	Es decir, se dejará el valor por defecto para todas aquellos atributos a 
+	los cuales no se les haya asignado un nuevo valor en el archivo \defaults, 
+	pero en caso de que se haya declarado un valor, se utilizará este último, 
+	descartando el valor anterior.
+} a los valores por defecto. Finalmente, se leerá el archivo de \defaults 
+local, \quoted{sobreecribiendo} los valores que hayan resultado de leer el archivo de \defaults global.\\
+\fronttier se distribuye con un manual de uso que provee las indicaciones 
+necesarias para crear y modificar éstos archivos, así como los contenidos 
+esperados en los mismos.
 
 
 \subsection{Distintos formatos del archivo configuración}
 \label{subsec:formats}
 
-Como ya se ha mencionado en el presente, existen múltiples formatos de archivos
-de configuración posibles. El formato elegido usando el método expresado en la
-sección \ref{subsubsec:guide:confformat} afecta así a la forma en la que deben
-estar declaradas las dependencias en el archivo. En las secciones siguientes
-se muestran los formatos incluidos por defecto con la herramienta.
+Como ya se ha mencionado en el presente documento, existen múltiples formatos 
+de archivos de configuración posibles. El formato elegido usando el método 
+expresado en la sección \ref{subsubsec:guide:confformat} influye así en la 
+forma en la que deben estar declaradas las \dependencies en el archivo. En las 
+secciones siguientes se muestran los formatos incluidos por defecto con la 
+herramienta.
 
 \subsubsection{Formato de configuración estándar}
 \label{subsubsec:formats:standar}
 
 El formato de configuración estándar o formato \fronttier es el método por 
-defecto para declarar las dependencias y repositorios.\\
-En este formato se deben declarar dos secciones. La sección \emph{repositories} 
-la cual es opcional, indica los repositorios adicionales que se desea utilizar, 
-uno por linea, o separados por punto y coma. La sección \emph{dependencies} es 
-obligatoria e indica las dependencias requeridas por el proyecto. Las secciones 
-se encuentran delimitadas por llaves, y solo puede haber una sección 
-\emph{dependencies} y una sección\emph{repositories}.\\
-En la sección \emph{dependencies} cada \dependency es declarada en una nueva 
-línea (o separandolas por punto y coma) indicando la \emph{company} seguida de 
-dos puntos y el nombre. De forma opcional se puede agregar dos puntos luego del 
-nombre e indicar la versión puntual que desea instalar.\\
+defecto para declarar las \dependencies y repositorios.\\
+En este formato se deben declarar dos secciones: \code{repositories} y 
+\code{dependencies}. La sección \code{repositories}, la cual es opcional, 
+indica los repositorios adicionales que se desean utilizar, uno por línea, o 
+separados por punto y coma. La sección \code{dependencies} es obligatoria e 
+indica las \dependencies requeridas por el proyecto. Las secciones se 
+encuentran 
+delimitadas por llaves, y sólo puede haber una sección 
+\code{dependencies} y una sección \code{repositories}.\\
+En la sección \code{dependencies} cada \dependency es declarada en una nueva 
+línea (o separándolas por punto y coma) indicando la \code{company} seguida de 
+dos puntos y el nombre (\code{name}). De forma opcional, se puede agregar dos 
+puntos luego del nombre e indicar la versión puntual que desea instalar.\\
 En este formato de archivo, los espacios en blanco no son tenidos en cuenta y 
-se pueden agregar comentarios de linea mediante el caracter \#.\\
+se pueden agregar comentarios de línea mediante el caracter \#.\\
 El código \ref{guide:fronttier:sample} muestra un ejemplo de una declaración de 
 este formato de archivo.
 
 \begin{listing}[ht]
-\begin{minted}[frame=lines]{javascript}
+	\begin{minted}[frame=lines]{javascript}
 repositories {
   http://myrepository.com
   https://some-other-repo.org/repository
@@ -520,41 +377,41 @@ repositories {
 
 dependencies {
   org.jquery:jquery:2.1.1; org.jquery:jquery-ui:1.11.0
-  # Esto es un comentario
+  # Ésto es un comentario
   com.twitter:bootstrap:3.2.0
 }
-\end{minted}
-\caption{Ejemplo del formato \emph{fronttier}}
-\label{guide:fronttier:sample}
+	\end{minted}
+	\caption{Ejemplo del formato \emph{fronttier}}
+	\label{guide:fronttier:sample}
 \end{listing}
-El formato Backus-Naur Extendido para este archivo se muestra de forma simplificada en 
-el código \ref{guide:fronttier:ebnf}.
+
+El formato Backus-Naur Extendido para éste archivo se muestra de forma 
+simplificada en el código \ref{guide:fronttier:ebnf}.
 
 \begin{listing}[ht]
 	\begin{minted}[frame=lines]{javascript}
-delimiter = ";"|"\n"
-string = "\s", {"\s"}
-repository	= string, delimiter
-repositories = "repositories {" {repository} "}"
-dependency	= string, ":", string, [":", string]
-dependencies = "dependencies {" {dependency} "}"
-depsfirst = dependencies, [repositories]
-depslast = [repositories], dependencies
-grammar = depsfirst | depslast
+string         = "\s", {"\s"}
+repository     = [string "::"], string
+repositories   = "repositories {" {repository} "}"
+dependency     = string, "::", string, ["::", string]
+dependencies   = "dependencies {" {dependency} "}"
+depsfirst      = dependencies, [repositories]
+depslast       = [repositories], dependencies
+grammar        = depsfirst | depslast
 	\end{minted}
 	\caption{EBNF de \emph{fronttier}}
 	\label{guide:fronttier:ebnf}
 \end{listing}
 
-Este formato se encuentra registrado bajo el identificador \emph{fronttier}.
+Éste formato se encuentra registrado bajo el identificador \emph{fronttier}.
 
 \subsubsection{Formato de configuración estilo \maven}
 \label{subsubsec:formats:mvn}
 
-El formato \xml permite configurar las dependencias y repositorios utilizando 
-\xml, algo que puede ser más cómodo para los usuarios de \maven. En este 
+El formato \xml permite configurar las \dependencies y repositorios utilizando 
+\xml, que puede ser más cómodo para los usuarios de \maven. En este 
 formato los repositorios, \dependencies y todas las propiedades de cada una de 
-las dependencias se expresan como texto entre tags \xml anidados.\\
+las \dependencies se expresan como texto entre tags \xml anidados.\\
 Los tags posibles y sus anidaciones están dadas por un archivo DTD, el cual se 
 puede apreciar en el código \ref{guide:xml:dtd}.
 
@@ -562,12 +419,14 @@ puede apreciar en el código \ref{guide:xml:dtd}.
 	\begin{minted}[frame=lines]{xml}
 <!ELEMENT fronttier (repositories?, dependencies)>
 <!ELEMENT repositories (repository*)>
-<!ELEMENT repository (#CDATA)>
+<!ELEMENT repository (type?, url)>
+<!ELEMENT type (#PCDATA)>
+<!ELEMENT url (#PCDATA)>
 <!ELEMENT dependencies (dependency*)>
 <!ELEMENT dependency (group, name, version?)>
-<!ELEMENT group (#CDATA)>
-<!ELEMENT name (#CDATA)>
-<!ELEMENT version (#CDATA)>
+<!ELEMENT group (#PCDATA)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT version (#PCDATA)>
 	\end{minted}
 	\caption{DTD del formato \emph{xml}}
 	\label{guide:xml:dtd}
@@ -576,16 +435,22 @@ puede apreciar en el código \ref{guide:xml:dtd}.
 Los nombres y las convenciones utilizadas en el formato se corresponden 
 completamente con aquellos usados por \apache \maven para una más fácil 
 adopción por parte de los usuarios de esta herramienta. En el código 
-\ref{guide:xml:sample} se muestra un ejemplo del formato \emph{xml}.
+\ref{guide:xml:sample} se muestra un ejemplo del formato \code{xml}.
 
 \begin{listing}[ht]
-\begin{minted}[frame=lines]{xml}
+	\begin{minted}[frame=lines]{xml}
 <?xml version="1.0"?>
-<!DOCTYPE fronttier-xml>
+<!DOCTYPE fronttier PUBLIC "-/Fronttier/xml.dtd"
+    "http://fronttier.alanrodas.com/dtd/xml.dtd">
 <fronttier>
   <repositories>
-    <repository>http://myrepository.com</repository>
-    <repository>https://some-other-repo.org/repository</repository>
+    <repository>
+      <url>http://myrepository.com</url>
+    </repository>
+    <repository>
+      <type>git</type>
+      <url>https://some-other-repo.org/repository</url>
+    </repository>
   </repositories>
   <dependencies>
     <dependency>
@@ -599,20 +464,20 @@ adopción por parte de los usuarios de esta herramienta. En el código
     </dependency>
   </dependencies>
 </fronttier>
-\end{minted}
-\caption{Ejemplo del formato \emph{xml}}
-\label{guide:xml:sample}
+	\end{minted}
+	\caption{Ejemplo del formato \emph{xml}}
+	\label{guide:xml:sample}
 \end{listing}
 
 \subsubsection{Formato de configuración estilo \ivy}
 \label{subsubsec:formats:ivy}
 
-Además del formato \emph{xml}, el formato \emph{attrxml} también utiliza \xml 
-para declarar \dependencies. A diferencia del anterior, este formato es más 
+Además del formato \code{xml}, el formato \code{attrxml} también utiliza \xml 
+para declarar \dependencies. A diferencia del anterior, éste es más 
 compacto, ya que los valores se declaran como atributos de los tags \xml.\\
-Este formato respeta las convenciones impuestas por \apache \ivy, pudiendo ser 
-de interés para los usuarios de dicha herramienta.\\
-La estructura de estos archivos está dada por el DTD que se muestra en el código
+Dicho formato respeta las convenciones impuestas por \apache \ivy, pudiendo ser 
+de interés para los usuarios de la herramienta.\\
+La estructura de éstos archivos está dada por el DTD que se muestra en el código
 \ref{guide:attrxml:dtd}
 
 \begin{listing}[ht]
@@ -620,6 +485,7 @@ La estructura de estos archivos está dada por el DTD que se muestra en el códi
 <!ELEMENT fronttier (repositories?, dependencies)>
 <!ELEMENT repositories (repository*)>
 <!ELEMENT repository EMPTY>
+<!ATTLIST repository type CDATA #IMPLIED>
 <!ATTLIST repository url CDATA #REQUIRED>
 <!ELEMENT dependencies (dependency*)>
 <!ELEMENT dependency EMPTY>
@@ -631,12 +497,14 @@ La estructura de estos archivos está dada por el DTD que se muestra en el códi
 	\label{guide:attrxml:dtd}
 \end{listing}
 
-El código en \ref{guide:attrxml:sample} muestra un ejemplo de este formato.
+El código en \ref{guide:attrxml:sample} muestra un ejemplo del formato 
+descripto.
 
 \begin{listing}[ht]
-\begin{minted}[frame=lines]{xml}
+	\begin{minted}[frame=lines]{xml}
 <?xml version="1.0"?>
-<!DOCTYPE fronttier-attrxml>
+<!DOCTYPE fronttier PUBLIC "-/Fronttier/xmlattr.dtd"
+    "http://fronttier.alanrodas.com/dtd/xmlattr.dtd">
 <fronttier>
   <repositories>
     <repository url="http://myrepository.com"/>
@@ -647,9 +515,9 @@ El código en \ref{guide:attrxml:sample} muestra un ejemplo de este formato.
     <dependency group="org.jquery" name="jquery-ui"/>
   </dependencies>
 </fronttier>
-\end{minted}
-\caption{Ejemplo del formato \emph{attrxml}}
-\label{guide:attrxml:sample}
+	\end{minted}
+	\caption{Ejemplo del formato \emph{attrxml}}
+	\label{guide:attrxml:sample}
 \end{listing}
 
 
@@ -657,15 +525,15 @@ El código en \ref{guide:attrxml:sample} muestra un ejemplo de este formato.
 \label{subsec:guide:systems}
 
 \fronttier no es solamente una herramienta que corre desde la \cli, sino que, 
-por ser un archivo \jar, puede ser utilizado como una biblioteca de la 
-plataforma \java. Esto permite que se utilice desde otros programas escritos 
+por ser un archivo \jar, puede ser utilizado como una biblioteca de la  
+plataforma \java. Ésto permite que se utilice desde otros programas escritos 
 para cualquiera de los lenguajes que corren sobre la \jvm.\\
-Para cada acción que se puede ejecutar desde la \cli \fronttier provee objetos 
+Para cada acción que se puede ejecutar desde la \cli, \fronttier provee objetos 
 y métodos que pueden ser utilizados desde el código del usuario. Esta es la 
 forma en que se pueden crear extensiones para la herramienta, como por ejemplo 
 nuevos formatos de \conffiles.\\
 El código de \fronttier es compatible por defecto con \scala, por estar hecho 
-en este lenguaje. También se proveen bindings para \java que permiten utilizar 
+en dicho lenguaje. También se proveen bindings para \java que permiten utilizar 
 todas las funcionalidades.\\
 La mayoría de los lenguajes que corren desde la \jvm permiten importar código 
 \java y utilizarlo. Sin embargo, el código \java no necesariamente se adapta a 
@@ -674,7 +542,8 @@ bindings que permitan usar la herramienta de forma transparente en estos
 lenguajes pueden ser creados a futuro.\\
 En particular, el paquete \jcode{com.alanrodas.fronttier} provee una serie de 
 traits, objetos y clases para extender la aplicación o usar sus 
-características. A su vez el paquete \jcode{com.alanrodas.fronttier.java} 
+características. A su vez, el paquete \jcode{com.alanrodas.fronttier.java} 
 provee los bindings correspondientes para realizar las mismas acciones desde 
 \java. La documentación completa se distribuirá oportunamente junto con la 
-aplicación.
+aplicación y podrá ir variando con el tiempo en base a nuevas versiones del 
+programa.

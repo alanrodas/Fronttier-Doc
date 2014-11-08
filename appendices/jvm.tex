@@ -1,4 +1,4 @@
-\section{Elección de la plataforma}
+\section{JVM como plataforma: Popularidad de la JVM}
 \label{appendix:jvm}
 
 En esta sección se explican brevemente los factores que motivan la elección de 
@@ -10,17 +10,17 @@ lenguajes que corren sobre la misma.\\
 \label{subsec:intro:about_jvm}
 
 Con la popularidad de \java, comenzaron a surgir una serie de lenguajes que 
-compilan a \bytecode para la \acl{jvm}. Estos lenguajes se presentan como 
-alternativas para los programadores de la plataforma que buscan una opción 
-"superior", en algún aspecto, a \java. \groovy, por ejemplo, se presenta como 
-un lenguaje dinámico, similar a Ruby; \clojure es una extensión de Lisp 
-apuntado a la Programación Concurrente; \scala es un lenguaje que presenta 
-características tanto de Programación Funcional como de Programación Orientada 
-a Objectos.  También existen otra numerosa cantidad de lenguajes, algunos 
-experimentales, otros con una base creciente de usuarios, que corren sobre la 
-plataforma. A  esto se suma una amplia cantidad de adaptaciones de lenguajes 
-populares para que corran en la \jvm, como JRuby y Jython, versiones de Ruby y 
-Python que compilan a \bytecode \java \citesq{Wikipedia:2014:ONLINE}.\\
+compilan a \bytecode para la Maquina Virtual de Java. Estos lenguajes se 
+presentan como alternativas para los programadores de la plataforma que buscan 
+una opción "superior", en algún aspecto, a \java. \groovy, por ejemplo, es un lenguaje dinámico, similar a Ruby; \clojure es una extensión 
+de Lisp apuntado a la Programación Concurrente; \scala es un lenguaje que 
+posee características tanto de Programación Funcional como de Programación 
+Orientada a Objectos.  También existe otra numerosa cantidad de lenguajes, 
+algunos experimentales, otros con una base creciente de usuarios, que corren 
+sobre la plataforma. A  esto se suma una amplia cantidad de adaptaciones de 
+lenguajes populares para que corran en la \jvm, como JRuby y Jython, versiones 
+de Ruby y Python que compilan a \bytecode \java 
+\citesq{Wikipedia:2014:ONLINE}.\\
 Una característica interesante de estos lenguajes es que el código compilado 
 suele ser compatible entre si, es decir, código escrito en \java puede ser 
 ejecutado en \scala, código \groovy puede ser usado desde \clojure, 
@@ -30,30 +30,36 @@ etc.\footnote{
 	especiales de estos suelen no poder ser empleadas desde otros lenguajes, 
 	presentando así ciertas limitaciones de compatibilidad.
 }.\\
-Finalmente, podemos destacar el hecho de que hoy en día existen numerosas 
-implementaciones de la \jvm, capaces de correr todos estos lenguajes en 
+Finalmente, se destaca el hecho de que hoy en día existen numerosas 
+implementaciones de la \jvm, capaces de correr dichos lenguajes en 
 distintas plataformas \citesq{Wikipedia:2012:ONLINE}.\\
 
 
 \subsection{Popularidad de la \jvm como plataforma}
 \label{subsec:intro:jvm_growth}
 
-Las estadísticas de análisis de popularidad de lenguajes, como la renombrada 
-estadística TIOBE, demuestran que \java es uno de los lenguajes más populares 
-[\citefullauthor{TIOBE:2014:ONLINE}, \citeyear{TIOBE:2014:ONLINE}]. La 
-estadística \emph{"transparente"} creada por 
+Las estadísticas de análisis de popularidad de lenguajes como la conocida TIOBE 
+demuestran que \java es uno de los lenguajes más populares 
+[\citefullauthor{TIOBE:2014:ONLINE}, \citeyear{TIOBE:2014:ONLINE}]. Por su 
+parte, el informe \emph{"transparente"} creado por 
 \citefullauthor{Montmollin:2013:ONLINE}, que publica el código de forma 
-\opensource y sus reglas online, muestra al lenguaje de Oracle en la misma 
+\opensource y sus reglas online, exhibe al lenguaje de Oracle en la misma 
 posición \citesq{Montmollin:2013:ONLINE}, mientras que la otra herramienta 
 \opensource que permite medir la popularidad de los lenguajes, PyPL, de
-\citefullauthor{Carbonelle:2014:ONLINE}, lo muestra en primer lugar
+\citefullauthor{Carbonelle:2014:ONLINE}, lo presenta en primer lugar
 \citesq{Carbonelle:2014:ONLINE}.\\
 Además, \citefullauthor{Kunst:2014:ONLINE} ha desarrollado un gráfico en donde 
-muestra la cantidad de líneas de código en \gls{github} por sobre las menciones 
-en \gls{stackoverflow}, mostrando a \java por sobre los más populares, pero 
-también a los lenguajes que corren sobre la \jvm\footnote{
+proyecta la cantidad de líneas de código en \emph{GitHub} por sobre las 
+menciones en \emph{Stack Overflow}\footnote{
+	StackOverflow es un popular sitio sobre programación, en donde usuarios
+	suelen realizar preguntas a problemas puntuales de programación y otros 
+	usuarios las responden.
+}, mostrando a \java por sobre los más populares, pero también a los lenguajes 
+que corren sobre la \jvm\footnote{
 	Entre los lenguajes para la \jvm se encuentran \scala, \clojure, \groovy, 
-	AspectJ, Ceylon, Fantom, Fortress, Frege, Gosu, Ioke, Jelly, Kotlin, Mirah, 
-	Processing, X10, Xtend, Rhino, JRuby, Jython, entre otros. Aunque no todos 
-	se encuentran mencionados en la gráfica.
+	\emph{AspectJ}, \emph{Ceylon}, \emph{Fantom}, \emph{Fortress}, 
+	\emph{Frege}, \emph{Gosu}, \emph{Ioke}, \emph{Jelly}, \emph{Kotlin}, 
+	\emph{Mirah}, \emph{Processing}, \emph{X10}, \emph{Xtend}, \emph{Rhino}, 
+	\emph{JRuby}, \emph{Jython}, entre otros. Aunque no todos se encuentran 
+	mencionados en la gráfica.
 } como de alto interés.\\
